@@ -139,7 +139,7 @@ export default function Hero() {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 20,
       },
@@ -212,8 +212,8 @@ export default function Hero() {
                 delay: 1.3,
               }}
             >
-              We build white-label AI tools and software that give your team an
-              edge your competitors can&apos;t buy off the shelf.
+              AI tools and software that actually fit how your team works—not
+              another off-the-shelf product you have to bend your business around.
             </motion.p>
 
             {/* CTAs */}
@@ -229,7 +229,7 @@ export default function Hero() {
               }}
             >
               <MagneticButton as="a" href="#contact" className="btn-primary">
-                Book a Strategy Call
+                See If We&apos;re a Fit
                 <motion.svg
                   className="w-5 h-5"
                   fill="none"

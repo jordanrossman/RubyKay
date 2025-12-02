@@ -10,9 +10,9 @@ export default function CaseStudies() {
   const caseStudies = [
     {
       name: "PropertyBrushAI",
-      tagline: "AI-Powered Real Estate Photo Editing",
+      tagline: "Professional listing photos in 60 seconds—not 3 days.",
       description:
-        "Virtual staging, sky replacement, and object removal—in seconds, not days. Built for agents who want professional photos without the wait or cost.",
+        "Virtual staging, sky replacement, and object removal at a fraction of the cost. Agents get professional photos instantly without waiting on editors or paying agency prices.",
       metrics: [
         { label: "Processing Time", value: "<60 sec" },
         { label: "Cost vs Traditional", value: "$1 vs $25" },
@@ -23,9 +23,9 @@ export default function CaseStudies() {
     },
     {
       name: "INVSBL",
-      tagline: "AI Follow-Up Assistant for Agents",
+      tagline: "The follow-up system agents actually use.",
       description:
-        "The CRM replacement that lives where agents already work. No more forgotten follow-ups, no more clunky dashboards—just results.",
+        "Your agents won't log into another CRM. INVSBL works via text and email—where they already are. 3x more follow-ups get done. Zero new logins required.",
       metrics: [
         { label: "Follow-up Completion", value: "3x More" },
         { label: "Works Via", value: "Text & Email" },
@@ -160,10 +160,9 @@ export default function CaseStudies() {
         <FadeIn delay={0.3} className="mt-16 text-center">
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             <span className="font-semibold text-slate-900">
-              What this proves:
+              What this means for you:
             </span>{" "}
-            RubyKay Labs can own the full lifecycle—from idea to product design
-            to full build to launch to adoption. We ship.
+            You get a partner who ships—from idea to launch to adoption. No endless discovery. No bloated timelines. Just a product your team actually uses.
           </p>
         </FadeIn>
       </div>

@@ -8,35 +8,47 @@ export default function WhatWeBuild() {
   const services = [
     {
       number: "01",
-      title: "AI-Powered Follow-Up & Agent Assistants",
-      problem: "Agents forget tasks, leads slip through, follow-up is inconsistent.",
-      solution:
-        "Tools that draft responses, remind agents, and route leads—so nothing falls through the cracks.",
-      example: "INVSBL-style assistant tailored to your team.",
+      title: "Consumer-Facing Websites",
+      description:
+        "Marketing sites, landing pages, and client portals that convert. Fast, polished, and built to integrate with your existing systems.",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        </svg>
+      ),
     },
     {
       number: "02",
-      title: "Custom CRMs & Productivity Dashboards",
-      problem: "Big CRMs are complex and under-used. Agents ignore them.",
-      solution:
-        "Simple, agent-first interfaces with leadership visibility. Built for how your team actually works.",
-      example: "Lightweight CRM overlays that integrate with existing systems.",
+      title: "Internal Tools & Dashboards",
+      description:
+        "Agent portals, CRM overlays, and productivity dashboards. Built for how your team actually works—not how a vendor thinks they should.",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+        </svg>
+      ),
     },
     {
       number: "03",
-      title: "Listing Marketing & Media Workflows",
-      problem: "Inconsistent listing launches, manual media pipelines, wasted time.",
-      solution:
-        "Automated workflows for photos, edits, virtual staging, and social campaigns.",
-      example: "Integration with AI tools like PropertyBrushAI.",
+      title: "Advanced AI Tools",
+      description:
+        "Custom AI assistants, automation workflows, and intelligent features. From follow-up bots to image processing—AI that fits your business, not the other way around.",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
     },
     {
       number: "04",
-      title: "Internal Portals & Agent Toolkits",
-      problem: "Scattered training, resources, and playbooks across too many places.",
-      solution:
-        "Centralized portal for onboarding, training, scripts, and branded assets.",
-      example: "Custom agent hubs built for your brokerage.",
+      title: "Mobile Apps",
+      description:
+        "Native iPhone and Android apps for agents and clients. Field-ready tools that work offline and sync when they need to.",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      ),
     },
   ];
 
@@ -64,53 +76,36 @@ export default function WhatWeBuild() {
         </div>
 
         {/* Services Grid */}
-        <StaggerContainer className="grid lg:grid-cols-2 gap-8" staggerDelay={0.12}>
+        <StaggerContainer className="grid md:grid-cols-2 gap-6" staggerDelay={0.1}>
           {services.map((service) => (
             <StaggerItem key={service.number}>
               <motion.div
-                className="feature-card h-full"
-                whileHover={{ y: -6 }}
+                className="bg-white rounded-2xl p-8 border border-slate-200 h-full"
+                whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                {/* Number */}
-                <motion.span
-                  className="section-number inline-block"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  [{service.number}]
-                </motion.span>
+                {/* Icon & Number */}
+                <div className="flex items-center gap-4 mb-6">
+                  <motion.div
+                    className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600"
+                    whileHover={{ scale: 1.05, backgroundColor: "rgb(241 245 249)" }}
+                  >
+                    {service.icon}
+                  </motion.div>
+                  <span className="text-sm font-medium text-slate-400">
+                    {service.number}
+                  </span>
+                </div>
 
                 {/* Title */}
-                <h3 className="text-xl lg:text-2xl font-semibold text-slate-900 mt-4 mb-6">
+                <h3 className="text-xl font-semibold text-slate-900 mb-3">
                   {service.title}
                 </h3>
 
-                {/* Problem */}
-                <div className="mb-4">
-                  <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-2">
-                    The Problem
-                  </p>
-                  <p className="text-slate-600">{service.problem}</p>
-                </div>
-
-                {/* Solution */}
-                <div className="mb-4">
-                  <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-2">
-                    Our Solution
-                  </p>
-                  <p className="text-slate-900 font-medium">{service.solution}</p>
-                </div>
-
-                {/* Example */}
-                <motion.div
-                  className="pt-4 border-t border-slate-100"
-                  initial={{ opacity: 0.7 }}
-                  whileHover={{ opacity: 1 }}
-                >
-                  <p className="text-sm text-slate-500">
-                    <span className="font-medium">Example:</span> {service.example}
-                  </p>
-                </motion.div>
+                {/* Description */}
+                <p className="text-slate-600 leading-relaxed">
+                  {service.description}
+                </p>
               </motion.div>
             </StaggerItem>
           ))}

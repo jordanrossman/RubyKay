@@ -147,7 +147,7 @@ export default function Navigation() {
                 href="#contact"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-slate-900 text-white text-[15px] font-medium rounded-lg hover:bg-slate-700 transition-colors"
               >
-                <span>Book a Call</span>
+                <span>See If We&apos;re a Fit</span>
                 <motion.svg
                   className="w-4 h-4"
                   fill="none"
@@ -251,7 +251,7 @@ export default function Navigation() {
                   onClick={() => setIsOpen(false)}
                   className="inline-flex items-center justify-center gap-2 w-full px-7 py-3.5 bg-slate-900 text-white text-[15px] font-medium rounded-lg hover:bg-slate-700 transition-colors"
                 >
-                  Book a Call
+                  See If We&apos;re a Fit
                   <svg
                     className="w-4 h-4"
                     fill="none"

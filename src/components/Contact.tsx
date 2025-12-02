@@ -100,8 +100,8 @@ export default function Contact() {
             </FadeIn>
             <FadeIn delay={0.1}>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
-                Ready to give your team a{" "}
-                <span className="text-ruby-600">real edge?</span>
+                Ready to build something that{" "}
+                <span className="text-ruby-600">actually fits?</span>
               </h2>
             </FadeIn>
             <FadeIn delay={0.2}>
@@ -400,7 +400,7 @@ export default function Contact() {
                   animate={isSubmitting ? { opacity: [1, 0.5, 1] } : {}}
                   transition={{ duration: 1, repeat: Infinity }}
                 >
-                  {isSubmitting ? "Sending..." : "Request a Strategy Call"}
+                  {isSubmitting ? "Sending..." : "See If We're a Fit"}
                 </motion.span>
               </MagneticButton>
             </motion.form>
