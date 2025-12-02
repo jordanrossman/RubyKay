@@ -1,3 +1,9 @@
+"use client";
+
+import { motion } from "framer-motion";
+import FadeIn from "./animations/FadeIn";
+import StaggerContainer, { StaggerItem } from "./animations/StaggerContainer";
+
 export default function WhatWeBuild() {
   const services = [
     {
@@ -35,59 +41,80 @@ export default function WhatWeBuild() {
   ];
 
   return (
-    <section id="services" className="py-24 lg:py-32 bg-slate-50">
+    <section id="services" className="py-24 lg:py-32 bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-2xl mb-16">
-          <div className="section-label mb-6">What We Build</div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
-            We don&apos;t sell templates. We build what your business{" "}
-            <span className="text-ruby-600">actually needs.</span>
-          </h2>
-          <p className="text-lg text-slate-600 leading-relaxed">
-            Every engagement starts with strategy. We understand your workflows,
-            identify the bottlenecks, then design and ship a tight v1—not a
-            bloated feature list.
-          </p>
+          <FadeIn>
+            <div className="section-label mb-6">What We Build</div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
+              We don&apos;t sell templates. We build what your business{" "}
+              <span className="text-ruby-600">actually needs.</span>
+            </h2>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <p className="text-lg text-slate-600 leading-relaxed">
+              Every engagement starts with strategy. We understand your workflows,
+              identify the bottlenecks, then design and ship a tight v1—not a
+              bloated feature list.
+            </p>
+          </FadeIn>
         </div>
 
         {/* Services Grid */}
-        <div className="grid lg:grid-cols-2 gap-8">
+        <StaggerContainer className="grid lg:grid-cols-2 gap-8" staggerDelay={0.12}>
           {services.map((service) => (
-            <div key={service.number} className="feature-card">
-              {/* Number */}
-              <span className="section-number">[{service.number}]</span>
+            <StaggerItem key={service.number}>
+              <motion.div
+                className="feature-card h-full"
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                {/* Number */}
+                <motion.span
+                  className="section-number inline-block"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  [{service.number}]
+                </motion.span>
 
-              {/* Title */}
-              <h3 className="text-xl lg:text-2xl font-semibold text-slate-900 mt-4 mb-6">
-                {service.title}
-              </h3>
+                {/* Title */}
+                <h3 className="text-xl lg:text-2xl font-semibold text-slate-900 mt-4 mb-6">
+                  {service.title}
+                </h3>
 
-              {/* Problem */}
-              <div className="mb-4">
-                <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-2">
-                  The Problem
-                </p>
-                <p className="text-slate-600">{service.problem}</p>
-              </div>
+                {/* Problem */}
+                <div className="mb-4">
+                  <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-2">
+                    The Problem
+                  </p>
+                  <p className="text-slate-600">{service.problem}</p>
+                </div>
 
-              {/* Solution */}
-              <div className="mb-4">
-                <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-2">
-                  Our Solution
-                </p>
-                <p className="text-slate-900 font-medium">{service.solution}</p>
-              </div>
+                {/* Solution */}
+                <div className="mb-4">
+                  <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-2">
+                    Our Solution
+                  </p>
+                  <p className="text-slate-900 font-medium">{service.solution}</p>
+                </div>
 
-              {/* Example */}
-              <div className="pt-4 border-t border-slate-100">
-                <p className="text-sm text-slate-500">
-                  <span className="font-medium">Example:</span> {service.example}
-                </p>
-              </div>
-            </div>
+                {/* Example */}
+                <motion.div
+                  className="pt-4 border-t border-slate-100"
+                  initial={{ opacity: 0.7 }}
+                  whileHover={{ opacity: 1 }}
+                >
+                  <p className="text-sm text-slate-500">
+                    <span className="font-medium">Example:</span> {service.example}
+                  </p>
+                </motion.div>
+              </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

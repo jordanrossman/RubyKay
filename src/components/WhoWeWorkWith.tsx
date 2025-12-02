@@ -1,3 +1,9 @@
+"use client";
+
+import { motion } from "framer-motion";
+import FadeIn from "./animations/FadeIn";
+import StaggerContainer, { StaggerItem } from "./animations/StaggerContainer";
+
 export default function WhoWeWorkWith() {
   const audiences = [
     {
@@ -63,46 +69,64 @@ export default function WhoWeWorkWith() {
   ];
 
   return (
-    <section className="py-24 lg:py-32 bg-white">
+    <section className="py-24 lg:py-32 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-2xl mb-16">
-          <div className="section-label mb-6">Who We Work With</div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
-            Built for real estate leaders who want an edge.
-          </h2>
-          <p className="text-lg text-slate-600 leading-relaxed">
-            We partner with teams and brokerages who are tired of off-the-shelf
-            tools that everyone else uses. If you want something that&apos;s
-            truly yours, we should talk.
-          </p>
+          <FadeIn>
+            <div className="section-label mb-6">Who We Work With</div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
+              Built for real estate leaders who want an edge.
+            </h2>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <p className="text-lg text-slate-600 leading-relaxed">
+              We partner with teams and brokerages who are tired of off-the-shelf
+              tools that everyone else uses. If you want something that&apos;s
+              truly yours, we should talk.
+            </p>
+          </FadeIn>
         </div>
 
         {/* Audience Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <StaggerContainer className="grid md:grid-cols-3 gap-8" staggerDelay={0.15}>
           {audiences.map((audience, index) => (
-            <div key={index} className="feature-card">
-              <div className="w-12 h-12 rounded-xl bg-ruby-50 text-ruby-600 flex items-center justify-center mb-6">
-                {audience.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                {audience.title}
-              </h3>
-              <p className="text-slate-600 leading-relaxed">
-                {audience.description}
-              </p>
-            </div>
+            <StaggerItem key={index}>
+              <motion.div
+                className="feature-card h-full"
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <motion.div
+                  className="w-12 h-12 rounded-xl bg-ruby-50 text-ruby-600 flex items-center justify-center mb-6"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  {audience.icon}
+                </motion.div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-3">
+                  {audience.title}
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  {audience.description}
+                </p>
+              </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Clarification */}
-        <div className="mt-12 p-6 bg-slate-50 rounded-xl border border-slate-200">
-          <p className="text-slate-600 text-center">
-            <span className="font-medium text-slate-900">Not a fit:</span> Solo
-            agents looking for cheap websites or off-the-shelf CRM plugins. We
-            build custom solutions for serious operators.
-          </p>
-        </div>
+        <FadeIn delay={0.4} className="mt-12">
+          <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
+            <p className="text-slate-600 text-center">
+              <span className="font-medium text-slate-900">Not a fit:</span> Solo
+              agents looking for cheap websites or off-the-shelf CRM plugins. We
+              build custom solutions for serious operators.
+            </p>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

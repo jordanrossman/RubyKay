@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import FadeIn from "./animations/FadeIn";
+import MagneticButton from "./animations/MagneticButton";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -28,7 +31,6 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     console.log("Form submitted:", formData);
@@ -38,9 +40,19 @@ export default function Contact() {
 
   if (isSubmitted) {
     return (
-      <section id="contact" className="py-24 lg:py-32 bg-slate-50">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <div className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-6">
+      <section id="contact" className="py-24 lg:py-32 bg-slate-50 overflow-hidden">
+        <motion.div
+          className="max-w-3xl mx-auto px-6 lg:px-8 text-center"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div
+            className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-6"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
+          >
             <svg
               className="w-8 h-8"
               fill="none"
@@ -54,76 +66,116 @@ export default function Contact() {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-          </div>
-          <h2 className="text-3xl font-serif text-slate-900 mb-4">
+          </motion.div>
+          <motion.h2
+            className="text-3xl font-serif text-slate-900 mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
             Thanks for reaching out!
-          </h2>
-          <p className="text-lg text-slate-600">
+          </motion.h2>
+          <motion.p
+            className="text-lg text-slate-600"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
             We&apos;ll review your message and get back to you within 24-48
             hours to schedule a strategy call.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </section>
     );
   }
 
   return (
-    <section id="contact" className="py-24 lg:py-32 bg-slate-50">
+    <section id="contact" className="py-24 lg:py-32 bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left Column - Text */}
           <div>
-            <div className="section-label mb-6">Let&apos;s Build</div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
-              Ready to give your team a{" "}
-              <span className="text-ruby-600">real edge?</span>
-            </h2>
-            <p className="text-lg text-slate-600 leading-relaxed mb-8">
-              Tell us about your team and what you&apos;re thinking about
-              building. We&apos;ll schedule a strategy call to explore if
-              we&apos;re a fit.
-            </p>
+            <FadeIn>
+              <div className="section-label mb-6">Let&apos;s Build</div>
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
+                Ready to give your team a{" "}
+                <span className="text-ruby-600">real edge?</span>
+              </h2>
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <p className="text-lg text-slate-600 leading-relaxed mb-8">
+                Tell us about your team and what you&apos;re thinking about
+                building. We&apos;ll schedule a strategy call to explore if
+                we&apos;re a fit.
+              </p>
+            </FadeIn>
 
             {/* What to Expect */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-slate-900">What to expect:</h3>
-              <ul className="space-y-3">
-                {[
-                  "30-minute strategy call to understand your needs",
-                  "Honest assessment of whether custom build makes sense",
-                  "High-level scope and investment range",
-                  "No pressure, no hard sell",
-                ].map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <svg
-                      className="w-5 h-5 text-ruby-600 flex-shrink-0 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+            <FadeIn delay={0.3}>
+              <div className="space-y-4">
+                <h3 className="font-semibold text-slate-900">What to expect:</h3>
+                <ul className="space-y-3">
+                  {[
+                    "30-minute strategy call to understand your needs",
+                    "Honest assessment of whether custom build makes sense",
+                    "High-level scope and investment range",
+                    "No pressure, no hard sell",
+                  ].map((item, index) => (
+                    <motion.li
+                      key={index}
+                      className="flex items-start gap-3"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 + index * 0.1 }}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span className="text-slate-600">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                      <motion.svg
+                        className="w-5 h-5 text-ruby-600 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          delay: 0.5 + index * 0.1,
+                        }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </motion.svg>
+                      <span className="text-slate-600">{item}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
           </div>
 
           {/* Right Column - Form */}
-          <div>
-            <form
+          <FadeIn delay={0.2} direction="left">
+            <motion.form
               onSubmit={handleSubmit}
               className="bg-white rounded-2xl p-8 lg:p-10 shadow-sm border border-slate-200"
+              whileHover={{ boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
+              transition={{ duration: 0.3 }}
             >
               <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 {/* Name */}
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                >
                   <label
                     htmlFor="name"
                     className="block text-sm font-medium text-slate-700 mb-2"
@@ -140,10 +192,15 @@ export default function Contact() {
                     className="input"
                     placeholder="Your name"
                   />
-                </div>
+                </motion.div>
 
                 {/* Email */}
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 }}
+                >
                   <label
                     htmlFor="email"
                     className="block text-sm font-medium text-slate-700 mb-2"
@@ -160,10 +217,15 @@ export default function Contact() {
                     className="input"
                     placeholder="you@company.com"
                   />
-                </div>
+                </motion.div>
 
                 {/* Company */}
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
                   <label
                     htmlFor="company"
                     className="block text-sm font-medium text-slate-700 mb-2"
@@ -180,10 +242,15 @@ export default function Contact() {
                     className="input"
                     placeholder="Your company"
                   />
-                </div>
+                </motion.div>
 
                 {/* Role */}
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.25 }}
+                >
                   <label
                     htmlFor="role"
                     className="block text-sm font-medium text-slate-700 mb-2"
@@ -202,15 +269,18 @@ export default function Contact() {
                     <option value="team-leader">Team Leader</option>
                     <option value="broker-owner">Broker / Owner</option>
                     <option value="ops-director">Operations Director</option>
-                    <option value="marketing-director">
-                      Marketing Director
-                    </option>
+                    <option value="marketing-director">Marketing Director</option>
                     <option value="other">Other</option>
                   </select>
-                </div>
+                </motion.div>
 
                 {/* Team Size */}
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                >
                   <label
                     htmlFor="teamSize"
                     className="block text-sm font-medium text-slate-700 mb-2"
@@ -230,10 +300,15 @@ export default function Contact() {
                     <option value="50-100">50-100 agents</option>
                     <option value="100+">100+ agents</option>
                   </select>
-                </div>
+                </motion.div>
 
                 {/* Markets */}
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.35 }}
+                >
                   <label
                     htmlFor="markets"
                     className="block text-sm font-medium text-slate-700 mb-2"
@@ -249,11 +324,17 @@ export default function Contact() {
                     className="input"
                     placeholder="e.g., Toronto, Vancouver"
                   />
-                </div>
+                </motion.div>
               </div>
 
               {/* Message */}
-              <div className="mb-6">
+              <motion.div
+                className="mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
                 <label
                   htmlFor="message"
                   className="block text-sm font-medium text-slate-700 mb-2"
@@ -270,22 +351,30 @@ export default function Contact() {
                   className="input textarea"
                   placeholder="Tell us about the problem you're trying to solve..."
                 />
-              </div>
+              </motion.div>
 
               {/* Budget */}
-              <div className="mb-8">
+              <motion.div
+                className="mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.45 }}
+              >
                 <label className="block text-sm font-medium text-slate-700 mb-3">
                   Budget Range (optional)
                 </label>
                 <div className="flex flex-wrap gap-3">
                   {["$10k-$25k", "$25k-$50k", "$50k+"].map((option) => (
-                    <label
+                    <motion.label
                       key={option}
                       className={`inline-flex items-center px-4 py-2 rounded-lg border cursor-pointer transition-all ${
                         formData.budget === option
                           ? "border-slate-900 bg-slate-900 text-white"
                           : "border-slate-300 hover:border-slate-400 bg-white"
                       }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       <input
                         type="radio"
@@ -296,21 +385,26 @@ export default function Contact() {
                         className="sr-only"
                       />
                       <span className="text-sm font-medium">{option}</span>
-                    </label>
+                    </motion.label>
                   ))}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Submit */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              <MagneticButton
+                as="button"
+                onClick={() => {}}
+                className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Sending..." : "Request a Strategy Call"}
-              </button>
-            </form>
-          </div>
+                <motion.span
+                  animate={isSubmitting ? { opacity: [1, 0.5, 1] } : {}}
+                  transition={{ duration: 1, repeat: Infinity }}
+                >
+                  {isSubmitting ? "Sending..." : "Request a Strategy Call"}
+                </motion.span>
+              </MagneticButton>
+            </motion.form>
+          </FadeIn>
         </div>
       </div>
     </section>

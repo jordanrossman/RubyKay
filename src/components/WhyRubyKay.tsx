@@ -1,4 +1,19 @@
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import FadeIn from "./animations/FadeIn";
+import StaggerContainer, { StaggerItem } from "./animations/StaggerContainer";
+
 export default function WhyRubyKay() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
   const differentiators = [
     {
       icon: (
@@ -123,42 +138,73 @@ export default function WhyRubyKay() {
   ];
 
   return (
-    <section className="py-24 lg:py-32 bg-dark-grid text-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section
+      ref={sectionRef}
+      className="relative py-24 lg:py-32 bg-dark-grid text-white overflow-hidden"
+    >
+      {/* Animated background gradient */}
+      <motion.div
+        className="absolute inset-0 opacity-30"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(185, 28, 28, 0.15) 0%, transparent 70%)",
+          y: backgroundY,
+        }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif leading-tight mb-6">
-            We don&apos;t just write code.{" "}
-            <span className="text-ruby-400">
-              We build products that agents actually use.
-            </span>
-          </h2>
-          <p className="text-lg text-slate-400 leading-relaxed">
-            Whether you need an AI assistant, a custom CRM, or a listing
-            toolkit—we design for adoption first. Because the best software is
-            the software your team will actually open.
-          </p>
+          <FadeIn>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif leading-tight mb-6">
+              We don&apos;t just write code.{" "}
+              <span className="text-ruby-400">
+                We build products that agents actually use.
+              </span>
+            </h2>
+          </FadeIn>
+          <FadeIn delay={0.15}>
+            <p className="text-lg text-slate-400 leading-relaxed">
+              Whether you need an AI assistant, a custom CRM, or a listing
+              toolkit—we design for adoption first. Because the best software is
+              the software your team will actually open.
+            </p>
+          </FadeIn>
         </div>
 
         {/* Differentiators Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          staggerDelay={0.1}
+        >
           {differentiators.map((item, index) => (
-            <div
-              key={index}
-              className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-            >
-              <div className="w-10 h-10 rounded-lg bg-ruby-600/20 text-ruby-400 flex items-center justify-center mb-4">
-                {item.icon}
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                {item.title}
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                {item.description}
-              </p>
-            </div>
+            <StaggerItem key={index}>
+              <motion.div
+                className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
+                whileHover={{
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  borderColor: "rgba(255,255,255,0.2)",
+                  y: -4,
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.div
+                  className="w-10 h-10 rounded-lg bg-ruby-600/20 text-ruby-400 flex items-center justify-center mb-4"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  {item.icon}
+                </motion.div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  {item.description}
+                </p>
+              </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );
