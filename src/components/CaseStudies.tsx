@@ -13,11 +13,6 @@ export default function CaseStudies() {
       tagline: "Professional listing photos in 60 seconds—not 3 days.",
       description:
         "Virtual staging, sky replacement, and object removal at a fraction of the cost. Agents get professional photos instantly without waiting on editors or paying agency prices.",
-      metrics: [
-        { label: "Processing Time", value: "<60 sec" },
-        { label: "Cost vs Traditional", value: "$1 vs $25" },
-        { label: "Properties Enhanced", value: "1,000+" },
-      ],
       image: "/screenshots/propertybrushai-hero-v2.png",
       link: "https://www.propertybrushai.com",
     },
@@ -26,11 +21,6 @@ export default function CaseStudies() {
       tagline: "The follow-up system agents actually use.",
       description:
         "Your agents won't log into another CRM. INVSBL works via text and email—where they already are. 3x more follow-ups get done. Zero new logins required.",
-      metrics: [
-        { label: "Follow-up Completion", value: "3x More" },
-        { label: "Works Via", value: "Text & Email" },
-        { label: "CRM Login Required", value: "Never" },
-      ],
       image: "/screenshots/invsbl-hero-v4.png",
       link: "https://www.goinvsbl.com",
     },
@@ -70,7 +60,7 @@ export default function CaseStudies() {
                 whileHover={{ y: -8 }}
               >
                 {/* Content */}
-                <div className="relative p-8 lg:p-10">
+                <div className="relative p-6 sm:p-8 lg:p-10">
                   {/* Header */}
                   <div className="mb-6">
                     <motion.h3
@@ -89,27 +79,6 @@ export default function CaseStudies() {
                   <p className="text-slate-400 leading-relaxed mb-8">
                     {study.description}
                   </p>
-
-                  {/* Metrics */}
-                  <div className="grid grid-cols-3 gap-4 mb-8">
-                    {study.metrics.map((metric, metricIndex) => (
-                      <motion.div
-                        key={metric.label}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.4 + metricIndex * 0.1 }}
-                      >
-                        <motion.p
-                          className="text-xl lg:text-2xl font-semibold text-white"
-                          whileHover={{ scale: 1.05 }}
-                        >
-                          {metric.value}
-                        </motion.p>
-                        <p className="text-sm text-slate-500">{metric.label}</p>
-                      </motion.div>
-                    ))}
-                  </div>
 
                   {/* Image */}
                   <motion.div

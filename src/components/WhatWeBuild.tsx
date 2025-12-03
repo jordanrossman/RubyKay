@@ -80,7 +80,7 @@ export default function WhatWeBuild() {
           {services.map((service) => (
             <StaggerItem key={service.number}>
               <motion.div
-                className="bg-white rounded-2xl p-8 border border-slate-200 h-full"
+                className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 h-full"
                 whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >

@@ -30,7 +30,7 @@ export default function Testimonial() {
         >
           {/* Quote mark */}
           <motion.div
-            className="text-ruby-200 text-[120px] leading-none font-serif mb-[-40px]"
+            className="text-ruby-200 text-[60px] sm:text-[80px] lg:text-[120px] leading-none font-serif mb-[-20px] sm:mb-[-30px] lg:mb-[-40px]"
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}

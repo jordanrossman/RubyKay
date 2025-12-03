@@ -180,7 +180,7 @@ export default function WhyRubyKay() {
           {differentiators.map((item, index) => (
             <StaggerItem key={index}>
               <motion.div
-                className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
+                className="p-5 sm:p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
                 whileHover={{
                   backgroundColor: "rgba(255,255,255,0.1)",
                   borderColor: "rgba(255,255,255,0.2)",

@@ -360,8 +360,14 @@ body {
   background: var(--white);
   border: 1px solid var(--slate-200);
   border-radius: 16px;
-  padding: 32px;
+  padding: 24px;
   transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .feature-card {
+    padding: 32px;
+  }
 }
 
 .feature-card:hover {

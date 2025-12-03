@@ -165,7 +165,7 @@ export default function Hero() {
         style={{ y, opacity, scale }}
         className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-32"
       >
-        <div className="flex flex-col items-center justify-center min-h-[70vh] text-center">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] sm:min-h-[70vh] text-center">
           {/* Text Content */}
           <motion.div
             className="max-w-4xl"
@@ -196,7 +196,7 @@ export default function Hero() {
                 <GlowWord delay={0.7}>serious</GlowWord>{" "}
                 <AnimatedWord delay={0.85}>real</AnimatedWord>{" "}
                 <AnimatedWord delay={0.95}>estate</AnimatedWord>{" "}
-                <AnimatedWord delay={1.05}>teams.</AnimatedWord>
+                <AnimatedWord delay={1.05}>businesses.</AnimatedWord>
               </span>
             </h1>
 
@@ -228,7 +228,7 @@ export default function Hero() {
                 delay: 1.5,
               }}
             >
-              <MagneticButton as="a" href="#contact" className="btn-primary">
+              <MagneticButton as="a" href="#contact" className="btn-primary w-full sm:w-auto">
                 See If We&apos;re a Fit
                 <motion.svg
                   className="w-5 h-5"
@@ -250,7 +250,7 @@ export default function Hero() {
               <MagneticButton
                 as="a"
                 href="#case-studies"
-                className="btn-secondary"
+                className="btn-secondary w-full sm:w-auto"
               >
                 See What We&apos;ve Built
               </MagneticButton>
@@ -260,9 +260,9 @@ export default function Hero() {
 
       </motion.div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - hidden on very small screens */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:block"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.5 }}

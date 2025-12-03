@@ -92,7 +92,7 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 lg:py-32 bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Left Column - Text */}
           <div>
             <FadeIn>
@@ -164,7 +164,7 @@ export default function Contact() {
           <FadeIn delay={0.2} direction="left">
             <motion.form
               onSubmit={handleSubmit}
-              className="bg-white rounded-2xl p-8 lg:p-10 shadow-sm border border-slate-200"
+              className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm border border-slate-200"
               whileHover={{ boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
               transition={{ duration: 0.3 }}
             >

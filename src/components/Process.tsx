@@ -15,13 +15,13 @@ export default function Process() {
       number: "02",
       title: "Product Blueprint",
       description:
-        "Map key flows and screens. Align on v1 scope vs future roadmap. No feature bloat—just what moves the needle.",
+        "Map key flows and screens. Align on what to build now vs later. No feature bloat—just what moves the needle.",
     },
     {
       number: "03",
       title: "Build & Iterate",
       description:
-        "Develop the product with regular demos and feedback loops. Integrate with your existing CRMs and tools.",
+        "Develop the product with regular demos and feedback loops. Integrate with your existing tools.",
     },
     {
       number: "04",
@@ -33,7 +33,7 @@ export default function Process() {
       number: "05",
       title: "Iterate & Support",
       description:
-        "Analyze usage and feedback. Prioritize and ship improvements. Optional ongoing retainer for continuous development.",
+        "Analyze usage and feedback. Prioritize and ship improvements.",
     },
   ];
 
