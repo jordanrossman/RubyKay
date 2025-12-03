@@ -20,7 +20,7 @@ export default function CaseStudies() {
       name: "INVSBL",
       tagline: "The follow-up system agents actually use.",
       description:
-        "Your agents won't log into another CRM. INVSBL works via text and email—where they already are. 3x more follow-ups get done. Zero new logins required.",
+        "INVSBL is a mobile app that provides a useful alternative to Realtors who hate CRMs. It helps them do one thing really well: relentless follow-up.",
       image: "/screenshots/invsbl-hero-v4.png",
       link: "https://www.goinvsbl.com",
     },
