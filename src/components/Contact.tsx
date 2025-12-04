@@ -7,8 +7,10 @@ import MagneticButton from "./animations/MagneticButton";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
+    phone: "",
     company: "",
     role: "",
     teamSize: "",
@@ -16,6 +18,7 @@ export default function Contact() {
     message: "",
     budget: "",
   });
+  const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -30,12 +33,29 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError("");
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    console.log("Form submitted:", formData);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to submit form");
+      }
+
+      setIsSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -169,7 +189,7 @@ export default function Contact() {
               transition={{ duration: 0.3 }}
             >
               <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                {/* Name */}
+                {/* First Name */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -177,20 +197,45 @@ export default function Contact() {
                   transition={{ delay: 0.1 }}
                 >
                   <label
-                    htmlFor="name"
+                    htmlFor="firstName"
                     className="block text-sm font-medium text-slate-700 mb-2"
                   >
-                    Name *
+                    First Name *
                   </label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
+                    id="firstName"
+                    name="firstName"
                     required
-                    value={formData.name}
+                    value={formData.firstName}
                     onChange={handleChange}
                     className="input"
-                    placeholder="Your name"
+                    placeholder="First name"
+                  />
+                </motion.div>
+
+                {/* Last Name */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 }}
+                >
+                  <label
+                    htmlFor="lastName"
+                    className="block text-sm font-medium text-slate-700 mb-2"
+                  >
+                    Last Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    required
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="input"
+                    placeholder="Last name"
                   />
                 </motion.div>
 
@@ -199,7 +244,7 @@ export default function Contact() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.15 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <label
                     htmlFor="email"
@@ -219,12 +264,36 @@ export default function Contact() {
                   />
                 </motion.div>
 
+                {/* Phone */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.25 }}
+                >
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-slate-700 mb-2"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="input"
+                    placeholder="(555) 555-5555"
+                  />
+                </motion.div>
+
                 {/* Company */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
+                  transition={{ delay: 0.3 }}
                 >
                   <label
                     htmlFor="company"
@@ -249,7 +318,7 @@ export default function Contact() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.25 }}
+                  transition={{ delay: 0.35 }}
                 >
                   <label
                     htmlFor="role"
@@ -279,7 +348,7 @@ export default function Contact() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
+                  transition={{ delay: 0.4 }}
                 >
                   <label
                     htmlFor="teamSize"
@@ -307,7 +376,7 @@ export default function Contact() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.35 }}
+                  transition={{ delay: 0.45 }}
                 >
                   <label
                     htmlFor="markets"
@@ -389,6 +458,20 @@ export default function Contact() {
                   ))}
                 </div>
               </motion.div>
+
+              {/* Error Display */}
+              <AnimatePresence>
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm"
+                  >
+                    {error}
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Submit */}
               <MagneticButton
