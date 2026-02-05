@@ -1,7 +1,3 @@
-"use client";
-
-import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -35,15 +31,13 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-4">
-              <Image
+            <a href="/" className="inline-block mb-4">
+              <img
                 src="/logo.png"
                 alt="RubyKay Labs"
-                width={160}
-                height={36}
                 className="h-8 w-auto brightness-0 invert"
               />
-            </Link>
+            </a>
             <p className="text-slate-400 text-sm leading-relaxed">
               Custom AI & software products for growing companies.
             </p>
@@ -57,12 +51,12 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.site.map((link) => (
                 <li key={link.label}>
-                  <Link
+                  <a
                     href={link.href}
                     className="text-slate-300 hover:text-white transition-colors text-sm"
                   >
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -76,7 +70,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.products.map((link) => (
                 <li key={link.label}>
-                  <Link
+                  <a
                     href={link.href}
                     target={link.external ? "_blank" : undefined}
                     rel={link.external ? "noopener noreferrer" : undefined}
@@ -98,7 +92,7 @@ export default function Footer() {
                         />
                       </svg>
                     )}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -112,7 +106,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.connect.map((link) => (
                 <li key={link.label}>
-                  <Link
+                  <a
                     href={link.href}
                     target={link.external ? "_blank" : undefined}
                     rel={link.external ? "noopener noreferrer" : undefined}
@@ -134,7 +128,7 @@ export default function Footer() {
                         />
                       </svg>
                     )}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -148,18 +142,18 @@ export default function Footer() {
               &copy; {currentYear} RubyKay Labs. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link
+              <a
                 href="/privacy"
                 className="text-slate-500 hover:text-slate-300 text-sm transition-colors"
               >
                 Privacy Policy
-              </Link>
-              <Link
+              </a>
+              <a
                 href="/terms"
                 className="text-slate-500 hover:text-slate-300 text-sm transition-colors"
               >
                 Terms
-              </Link>
+              </a>
             </div>
           </div>
         </div>

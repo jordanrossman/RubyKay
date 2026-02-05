@@ -1,7 +1,3 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import FadeIn from "./animations/FadeIn";
 import { ScaleOnScroll } from "./animations/Parallax";
@@ -86,18 +82,16 @@ export default function CaseStudies() {
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <Image
+                    <img
                       src={study.image}
                       alt={`${study.name} screenshot`}
-                      width={600}
-                      height={340}
                       className="w-full h-auto opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                     />
                   </motion.div>
 
                   {/* CTA */}
                   <motion.div whileHover={{ x: 8 }} transition={{ type: "spring", stiffness: 400 }}>
-                    <Link
+                    <a
                       href={study.link}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -117,7 +111,7 @@ export default function CaseStudies() {
                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                         />
                       </svg>
-                    </Link>
+                    </a>
                   </motion.div>
                 </div>
               </motion.div>

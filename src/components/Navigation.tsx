@@ -1,8 +1,4 @@
-"use client";
-
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import MagneticButton from "./animations/MagneticButton";
 
@@ -99,17 +95,15 @@ export default function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <Link href="/" className="flex items-center">
+            <a href="/" className="flex items-center">
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Image
+                <img
                   src="/logo.png"
                   alt="RubyKay Labs"
-                  width={160}
-                  height={36}
                   className="h-8 w-auto"
                 />
               </motion.div>
-            </Link>
+            </a>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -122,7 +116,7 @@ export default function Navigation() {
                 initial="initial"
                 animate="animate"
               >
-                <Link
+                <a
                   href={link.href}
                   className="relative text-[15px] font-medium text-slate-700 hover:text-slate-950 transition-colors group"
                 >
@@ -133,7 +127,7 @@ export default function Navigation() {
                     whileHover={{ scaleX: 1 }}
                     transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                   />
-                </Link>
+                </a>
               </motion.div>
             ))}
 
@@ -229,13 +223,13 @@ export default function Navigation() {
                   animate="open"
                   exit="closed"
                 >
-                  <Link
+                  <a
                     href={link.href}
                     onClick={() => setIsOpen(false)}
                     className="block text-lg font-medium text-slate-700 hover:text-slate-950 transition-colors py-2"
                   >
                     {link.label}
-                  </Link>
+                  </a>
                 </motion.div>
               ))}
               <motion.div
@@ -246,12 +240,12 @@ export default function Navigation() {
                 exit="closed"
                 className="pt-2"
               >
-                <Link
+                <a
                   href="#contact"
                   onClick={() => setIsOpen(false)}
                   className="inline-flex items-center justify-center gap-2 w-full px-7 py-3.5 bg-slate-900 text-white text-[15px] font-medium rounded-lg hover:bg-slate-700 transition-colors"
                 >
-                  See If We&apos;re a Fit
+                  See If We're a Fit
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -265,7 +259,7 @@ export default function Navigation() {
                       d="M17 8l4 4m0 0l-4 4m4-4H3"
                     />
                   </svg>
-                </Link>
+                </a>
               </motion.div>
             </div>
           </motion.div>

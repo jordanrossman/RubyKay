@@ -83,8 +83,8 @@
   --color-slate-900: var(--slate-900);
   --color-slate-950: var(--slate-950);
 
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
 }
 
@@ -99,7 +99,7 @@ html {
 body {
   background: var(--white);
   color: var(--slate-950);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -110,13 +110,13 @@ body {
    ============================================ */
 
 .font-serif {
-  font-family: var(--font-instrument-serif), Georgia, serif;
+  font-family: 'Instrument Serif', Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.02em;
 }
 
 .font-sans {
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Gradient Text Effect (Attio-inspired) */

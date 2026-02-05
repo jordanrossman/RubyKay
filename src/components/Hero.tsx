@@ -1,5 +1,3 @@
-"use client";
-
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import MagneticButton from "./animations/MagneticButton";
