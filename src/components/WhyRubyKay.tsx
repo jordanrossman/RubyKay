@@ -31,9 +31,9 @@ export default function WhyRubyKay() {
           />
         </svg>
       ),
-      title: "Real Estate Fluency",
+      title: "Business Fluency",
       description:
-        "We speak your language—MLS, GCI, listing presentations, follow-up cycles. No translating tech jargon.",
+        "We learn your workflows, your bottlenecks, your goals. No translating tech jargon—we speak operator.",
     },
     {
       icon: (
@@ -53,7 +53,7 @@ export default function WhyRubyKay() {
       ),
       title: "Shipped Products",
       description:
-        "PropertyBrushAI and INVSBL aren't prototypes—they're live, used, and proven. We build to ship.",
+        "Our products aren't prototypes—they're live, used, and proven. We build to ship.",
     },
     {
       icon: (
@@ -159,14 +159,14 @@ export default function WhyRubyKay() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif leading-tight mb-6">
               We don&apos;t just write code.{" "}
               <span className="text-ruby-400">
-                We build products that agents actually use.
+                We build products your team actually uses.
               </span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.15}>
             <p className="text-lg text-slate-400 leading-relaxed">
-              Whether you need an AI assistant, a custom CRM, or a listing
-              toolkit—we design for adoption first. Because the best software is
+              Whether you need an AI assistant, a custom dashboard, or an internal
+              tool—we design for adoption first. Because the best software is
               the software your team will actually open.
             </p>
           </FadeIn>

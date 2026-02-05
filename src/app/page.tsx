@@ -5,7 +5,6 @@ import WhatWeBuild from "@/components/WhatWeBuild";
 import CaseStudies from "@/components/CaseStudies";
 import WhyRubyKay from "@/components/WhyRubyKay";
 import Process from "@/components/Process";
-import Testimonial from "@/components/Testimonial";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -20,7 +19,6 @@ export default function Home() {
         <CaseStudies />
         <WhyRubyKay />
         <Process />
-        <Testimonial />
         <Contact />
       </main>
       <Footer />

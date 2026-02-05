@@ -21,7 +21,7 @@ export default function WhatWeBuild() {
       number: "02",
       title: "Internal Tools & Dashboards",
       description:
-        "Agent portals, CRM overlays, and productivity dashboards. Built for how your team actually works—not how a vendor thinks they should.",
+        "Team portals, admin panels, and productivity dashboards. Built for how your team actually works—not how a vendor thinks they should.",
       icon: (
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
@@ -32,7 +32,7 @@ export default function WhatWeBuild() {
       number: "03",
       title: "Advanced AI Tools",
       description:
-        "Custom AI assistants, automation workflows, and intelligent features. From follow-up bots to image processing—AI that fits your business, not the other way around.",
+        "Custom AI assistants, automation workflows, and intelligent features. From chatbots to image processing—AI that fits your business, not the other way around.",
       icon: (
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -43,7 +43,7 @@ export default function WhatWeBuild() {
       number: "04",
       title: "Mobile Apps",
       description:
-        "Native iPhone and Android apps for agents and clients. Field-ready tools that work offline and sync when they need to.",
+        "Native iPhone and Android apps for your team and customers. Field-ready tools that work offline and sync when they need to.",
       icon: (
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />

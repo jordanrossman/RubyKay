@@ -188,15 +188,17 @@ export default function Hero() {
             {/* Headline - The Star of the Show */}
             <h1 className="text-4xl sm:text-5xl lg:text-[5rem] xl:text-[6rem] font-serif text-slate-950 leading-[1.05] mb-8 perspective-1000">
               <span className="block overflow-hidden">
-                <AnimatedWord delay={0.3}>Custom</AnimatedWord>{" "}
-                <AnimatedWord delay={0.4}>products</AnimatedWord>{" "}
-                <AnimatedWord delay={0.5}>for</AnimatedWord>
+                <AnimatedWord delay={0.3}>Software</AnimatedWord>{" "}
+                <AnimatedWord delay={0.4}>built</AnimatedWord>{" "}
+                <AnimatedWord delay={0.5}>around</AnimatedWord>
               </span>
               <span className="block">
-                <GlowWord delay={0.7}>serious</GlowWord>{" "}
-                <AnimatedWord delay={0.85}>real</AnimatedWord>{" "}
-                <AnimatedWord delay={0.95}>estate</AnimatedWord>{" "}
-                <AnimatedWord delay={1.05}>businesses.</AnimatedWord>
+                <GlowWord delay={0.7}>your</GlowWord>{" "}
+                <AnimatedWord delay={0.85}>business,</AnimatedWord>{" "}
+                <AnimatedWord delay={0.95}>not</AnimatedWord>{" "}
+                <AnimatedWord delay={1.05}>the</AnimatedWord>{" "}
+                <AnimatedWord delay={1.15}>other</AnimatedWord>{" "}
+                <AnimatedWord delay={1.25}>way.</AnimatedWord>
               </span>
             </h1>
 
@@ -212,7 +214,7 @@ export default function Hero() {
                 delay: 1.3,
               }}
             >
-              AI tools and software that actually fit how your team works—not
+              Custom AI tools and software that fit how your team actually works—not
               another off-the-shelf product you have to bend your business around.
             </motion.p>
 

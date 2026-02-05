@@ -10,17 +10,17 @@ export default function CaseStudies() {
   const caseStudies = [
     {
       name: "PropertyBrushAI",
-      tagline: "Professional listing photos in 60 seconds—not 3 days.",
+      tagline: "Professional property photos in 60 seconds—not 3 days.",
       description:
-        "Virtual staging, sky replacement, and object removal at a fraction of the cost. Agents get professional photos instantly without waiting on editors or paying agency prices.",
+        "AI-powered virtual staging, sky replacement, and object removal at a fraction of the cost. Users get professional photos instantly without waiting on editors or paying agency prices.",
       image: "/screenshots/propertybrushai-hero-v2.png",
       link: "https://www.propertybrushai.com",
     },
     {
       name: "INVSBL",
-      tagline: "The follow-up system agents actually use.",
+      tagline: "The follow-up system people actually use.",
       description:
-        "INVSBL is a mobile app that provides a useful alternative to Realtors who hate CRMs. It helps them do one thing really well: relentless follow-up.",
+        "A mobile app built for professionals who hate bloated CRMs. It helps them do one thing really well: relentless follow-up that converts.",
       image: "/screenshots/invsbl-hero-v4.png",
       link: "https://www.goinvsbl.com",
     },
@@ -42,7 +42,7 @@ export default function CaseStudies() {
           <FadeIn delay={0.2}>
             <p className="text-lg text-slate-600 leading-relaxed">
               We don&apos;t just talk about building—we ship. Here are two products
-              we&apos;ve designed, built, and launched in the real estate space.
+              we&apos;ve designed, built, and launched.
             </p>
           </FadeIn>
         </div>

@@ -299,7 +299,7 @@ export default function Contact() {
                     htmlFor="company"
                     className="block text-sm font-medium text-slate-700 mb-2"
                   >
-                    Company / Brokerage *
+                    Company *
                   </label>
                   <input
                     type="text"
@@ -335,10 +335,10 @@ export default function Contact() {
                     className="input bg-white"
                   >
                     <option value="">Select role</option>
-                    <option value="team-leader">Team Leader</option>
-                    <option value="broker-owner">Broker / Owner</option>
+                    <option value="founder-ceo">Founder / CEO</option>
+                    <option value="cto-tech-lead">CTO / Tech Lead</option>
                     <option value="ops-director">Operations Director</option>
-                    <option value="marketing-director">Marketing Director</option>
+                    <option value="product-manager">Product Manager</option>
                     <option value="other">Other</option>
                   </select>
                 </motion.div>
@@ -354,7 +354,7 @@ export default function Contact() {
                     htmlFor="teamSize"
                     className="block text-sm font-medium text-slate-700 mb-2"
                   >
-                    Team / Agent Count
+                    Team Size
                   </label>
                   <select
                     id="teamSize"
@@ -364,14 +364,14 @@ export default function Contact() {
                     className="input bg-white"
                   >
                     <option value="">Select size</option>
-                    <option value="10-25">10-25 agents</option>
-                    <option value="25-50">25-50 agents</option>
-                    <option value="50-100">50-100 agents</option>
-                    <option value="100+">100+ agents</option>
+                    <option value="10-25">10-25 people</option>
+                    <option value="25-50">25-50 people</option>
+                    <option value="50-100">50-100 people</option>
+                    <option value="100+">100+ people</option>
                   </select>
                 </motion.div>
 
-                {/* Markets */}
+                {/* Industry */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -382,7 +382,7 @@ export default function Contact() {
                     htmlFor="markets"
                     className="block text-sm font-medium text-slate-700 mb-2"
                   >
-                    Market(s)
+                    Industry
                   </label>
                   <input
                     type="text"
@@ -391,7 +391,7 @@ export default function Contact() {
                     value={formData.markets}
                     onChange={handleChange}
                     className="input"
-                    placeholder="e.g., Toronto, Vancouver"
+                    placeholder="e.g., Real Estate, Healthcare, SaaS"
                   />
                 </motion.div>
               </div>

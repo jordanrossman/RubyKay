@@ -22,9 +22,9 @@ export default function WhoWeWorkWith() {
           />
         </svg>
       ),
-      title: "High-Performing Teams",
+      title: "Growing Teams",
       description:
-        "10-100 agent teams who want proprietary tech that gives them a recruiting and conversion edge.",
+        "Companies with 10-100 people who want proprietary tools that give them a competitive edge.",
     },
     {
       icon: (
@@ -42,9 +42,9 @@ export default function WhoWeWorkWith() {
           />
         </svg>
       ),
-      title: "Growth-Focused Brokerages",
+      title: "Scaling Organizations",
       description:
-        "50-500+ agent brokerages looking to stand out with superior tech for recruiting and retention.",
+        "Mid-size companies looking to stand out with custom tech that drives efficiency and retention.",
     },
     {
       icon: (
@@ -64,7 +64,7 @@ export default function WhoWeWorkWith() {
       ),
       title: "Operations Leaders",
       description:
-        "Marketing and ops directors who need to systematize listing launches and agent workflows.",
+        "Directors and managers who need to systematize workflows and eliminate manual bottlenecks.",
     },
   ];
 
@@ -78,12 +78,12 @@ export default function WhoWeWorkWith() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
-              Built for real estate leaders who want an edge.
+              Built for operators who refuse to settle.
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-lg text-slate-600 leading-relaxed">
-              We partner with teams and brokerages who are tired of off-the-shelf
+              We partner with companies who are tired of off-the-shelf
               tools that everyone else uses. If you want something that&apos;s
               truly yours, we should talk.
             </p>
@@ -121,8 +121,8 @@ export default function WhoWeWorkWith() {
         <FadeIn delay={0.4} className="mt-12">
           <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
             <p className="text-slate-600 text-center">
-              <span className="font-medium text-slate-900">Not a fit:</span> Solo
-              agents looking for cheap websites or off-the-shelf CRM plugins. We
+              <span className="font-medium text-slate-900">Not a fit:</span> Early-stage
+              startups looking for cheap websites or off-the-shelf plugins. We
               build custom solutions for serious operators.
             </p>
           </div>

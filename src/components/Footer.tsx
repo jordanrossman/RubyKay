@@ -45,8 +45,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Custom AI & software products for real estate teams and
-              brokerages.
+              Custom AI & software products for growing companies.
             </p>
           </div>
 

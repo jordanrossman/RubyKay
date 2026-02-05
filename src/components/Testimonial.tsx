@@ -48,7 +48,7 @@ export default function Testimonial() {
           >
             Finally, a dev partner who{" "}
             <span className="text-gradient">
-              actually understands how real estate teams work.
+              actually understands how our business works.
             </span>
             &rdquo;
           </motion.p>
@@ -68,9 +68,9 @@ export default function Testimonial() {
               transition={{ duration: 0.6, delay: 0.6 }}
             />
             <p className="text-lg font-medium text-slate-900">
-              Real Estate Team Leader
+              Operations Director
             </p>
-            <p className="text-slate-500 mt-1">50+ Agent Brokerage</p>
+            <p className="text-slate-500 mt-1">50+ Person Company</p>
           </motion.footer>
         </motion.blockquote>
       </motion.div>

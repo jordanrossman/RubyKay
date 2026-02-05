@@ -17,31 +17,31 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "RubyKay Labs | Custom AI & Software for Real Estate Teams",
+  title: "RubyKay Labs | Custom AI & Software for Growing Companies",
   description:
-    "We build custom, white-label AI and software products for real estate teams and brokerages. Get tools your competitors can't buy off the shelf.",
+    "We build custom AI tools and software products that fit how your team actually works. No off-the-shelf compromises—just solutions built around your business.",
   keywords: [
-    "real estate software",
-    "custom CRM",
-    "AI for real estate",
+    "custom software development",
+    "AI development agency",
     "white-label software",
-    "real estate technology",
-    "agent tools",
+    "custom business tools",
+    "software consulting",
+    "bespoke software",
   ],
   authors: [{ name: "RubyKay Labs" }],
   openGraph: {
-    title: "RubyKay Labs | Custom AI & Software for Real Estate Teams",
+    title: "RubyKay Labs | Custom AI & Software for Growing Companies",
     description:
-      "We build custom, white-label AI and software products for real estate teams and brokerages.",
+      "We build custom AI tools and software products that fit how your team actually works.",
     url: "https://rubykaylabs.com",
     siteName: "RubyKay Labs",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "RubyKay Labs | Custom AI & Software for Real Estate Teams",
+    title: "RubyKay Labs | Custom AI & Software for Growing Companies",
     description:
-      "We build custom, white-label AI and software products for real estate teams and brokerages.",
+      "We build custom AI tools and software products that fit how your team actually works.",
   },
 };
 
@@ -54,6 +54,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body
         className={`${inter.variable} ${instrumentSerif.variable} font-sans antialiased`}
+        suppressHydrationWarning
       >
         <SmoothScroll>{children}</SmoothScroll>
       </body>
