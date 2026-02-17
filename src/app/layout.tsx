@@ -36,12 +36,21 @@ export const metadata: Metadata = {
     url: "https://rubykaylabs.com",
     siteName: "RubyKay Labs",
     type: "website",
+    images: [
+      {
+        url: "https://rubykaylabs.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "RubyKay Labs - Software built around your business, not the other way.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "RubyKay Labs | Custom AI & Software for Growing Companies",
     description:
       "We build custom AI tools and software products that fit how your team actually works.",
+    images: ["https://rubykaylabs.com/og-image.png"],
   },
 };
 
