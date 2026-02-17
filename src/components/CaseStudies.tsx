@@ -201,7 +201,7 @@ export default function CaseStudies() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-lg text-slate-600 leading-relaxed">
-              We don&apos;t just talk about building—we ship. Here are three
+              We don&apos;t just talk about building—we ship. Here are some of the
               products we&apos;ve designed, built, and launched.
             </p>
           </FadeIn>
