@@ -14,7 +14,7 @@ export default function TextReveal({
   className = "",
   delay = 0,
   once = true,
-  as: Component = "span",
+  as: _Component = "span",
 }: TextRevealProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once, amount: 0.5 });
@@ -23,7 +23,7 @@ export default function TextReveal({
 
   const container = {
     hidden: { opacity: 0 },
-    visible: (i = 1) => ({
+    visible: (_i = 1) => ({
       opacity: 1,
       transition: { staggerChildren: 0.08, delayChildren: delay },
     }),

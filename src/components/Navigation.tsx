@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import MagneticButton from "./animations/MagneticButton";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
   const { scrollY } = useScroll();
 
   const backgroundColor = useTransform(
@@ -14,14 +13,6 @@ export default function Navigation() {
   );
 
   const borderOpacity = useTransform(scrollY, [0, 100], [0, 1]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setHasScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const navLinks = [
     { label: "Services", href: "#services" },

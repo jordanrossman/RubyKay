@@ -132,7 +132,6 @@ export default function CaseStudies() {
   // Shared card content renderer
   const renderCard = (
     study: (typeof caseStudies)[number],
-    index: number
   ) => (
     <div className="group relative bg-slate-900 rounded-3xl overflow-hidden h-full">
       <div className="relative p-6 sm:p-8 lg:p-10">
@@ -220,7 +219,7 @@ export default function CaseStudies() {
                 whileHover={{ y: -8 }}
                 className="h-full"
               >
-                {renderCard(study, index)}
+                {renderCard(study)}
               </motion.div>
             </ScaleOnScroll>
           ))}
@@ -259,7 +258,7 @@ export default function CaseStudies() {
                 role="group"
                 aria-roledescription="slide"
               >
-                {renderCard(study, index)}
+                {renderCard(study)}
               </motion.div>
             );
           })}
