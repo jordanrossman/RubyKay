@@ -133,15 +133,15 @@ export default function CaseStudies() {
   const renderCard = (
     study: (typeof caseStudies)[number],
   ) => (
-    <div className="group relative bg-slate-900 rounded-3xl overflow-hidden h-full">
-      <div className="relative p-6 sm:p-8 lg:p-10">
+    <div className="group relative bg-slate-900 rounded-3xl overflow-hidden h-full flex flex-col">
+      <div className="relative p-6 sm:p-8 lg:p-10 flex flex-col h-full">
         <div className="mb-4">
           <h3 className="text-xl lg:text-2xl font-semibold text-white mb-2">
             {study.name}
           </h3>
           <p className="text-sm text-slate-400">{study.tagline}</p>
         </div>
-        <p className="text-sm text-slate-400 leading-relaxed mb-6">
+        <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-grow">
           {study.description}
         </p>
         <div className="rounded-xl overflow-hidden mb-6 bg-slate-800">
