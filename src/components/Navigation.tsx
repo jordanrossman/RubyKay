@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 import MagneticButton from "./animations/MagneticButton";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const { scrollY } = useScroll();
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   const backgroundColor = useTransform(
     scrollY,
@@ -14,11 +17,20 @@ export default function Navigation() {
 
   const borderOpacity = useTransform(scrollY, [0, 100], [0, 1]);
 
-  const navLinks = [
+  const navLinks: { label: string; href: string; isRoute?: boolean }[] = [
+    { label: "About", href: "/about", isRoute: true },
     { label: "Services", href: "#services" },
     { label: "Case Studies", href: "#case-studies" },
     { label: "Process", href: "#process" },
   ];
+
+  // Resolve anchor links: on homepage use #hash, from other pages use /#hash
+  const resolveHref = (href: string) => {
+    if (href.startsWith("#")) {
+      return isHome ? href : `/${href}`;
+    }
+    return href;
+  };
 
   const linkVariants = {
     initial: { opacity: 0, y: -10 },
@@ -86,7 +98,7 @@ export default function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <a href="/" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <img
                   src="/logo.png"
@@ -94,7 +106,7 @@ export default function Navigation() {
                   className="h-8 w-auto"
                 />
               </motion.div>
-            </a>
+            </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -107,29 +119,44 @@ export default function Navigation() {
                 initial="initial"
                 animate="animate"
               >
-                <a
-                  href={link.href}
-                  className="relative text-[15px] font-medium text-slate-700 hover:text-slate-950 transition-colors group"
-                >
-                  {link.label}
-                  <motion.span
-                    className="absolute -bottom-1 left-0 w-full h-px bg-slate-900 origin-left"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                  />
-                </a>
+                {link.isRoute ? (
+                  <Link
+                    to={link.href}
+                    className="relative text-[15px] font-medium text-slate-700 hover:text-slate-950 transition-colors group"
+                  >
+                    {link.label}
+                    <motion.span
+                      className="absolute -bottom-1 left-0 w-full h-px bg-slate-900 origin-left"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                    />
+                  </Link>
+                ) : (
+                  <a
+                    href={resolveHref(link.href)}
+                    className="relative text-[15px] font-medium text-slate-700 hover:text-slate-950 transition-colors group"
+                  >
+                    {link.label}
+                    <motion.span
+                      className="absolute -bottom-1 left-0 w-full h-px bg-slate-900 origin-left"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                    />
+                  </a>
+                )}
               </motion.div>
             ))}
 
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
             >
               <MagneticButton
                 as="a"
-                href="#contact"
+                href={resolveHref("#contact")}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-slate-900 text-white text-[15px] font-medium rounded-lg hover:bg-slate-700 transition-colors"
               >
                 <span>See If We&apos;re a Fit</span>
@@ -214,13 +241,23 @@ export default function Navigation() {
                   animate="open"
                   exit="closed"
                 >
-                  <a
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block text-lg font-medium text-slate-700 hover:text-slate-950 transition-colors py-2"
-                  >
-                    {link.label}
-                  </a>
+                  {link.isRoute ? (
+                    <Link
+                      to={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block text-lg font-medium text-slate-700 hover:text-slate-950 transition-colors py-2"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={resolveHref(link.href)}
+                      onClick={() => setIsOpen(false)}
+                      className="block text-lg font-medium text-slate-700 hover:text-slate-950 transition-colors py-2"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </motion.div>
               ))}
               <motion.div
@@ -232,7 +269,7 @@ export default function Navigation() {
                 className="pt-2"
               >
                 <a
-                  href="#contact"
+                  href={resolveHref("#contact")}
                   onClick={() => setIsOpen(false)}
                   className="inline-flex items-center justify-center gap-2 w-full px-7 py-3.5 bg-slate-900 text-white text-[15px] font-medium rounded-lg hover:bg-slate-700 transition-colors"
                 >
