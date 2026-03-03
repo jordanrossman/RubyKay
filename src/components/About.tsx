@@ -40,7 +40,7 @@ function AboutHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          Building software that real estate teams actually use—shipped products, not slide decks.
+          Building software that teams actually use—shipped products, not slide decks.
         </motion.p>
       </div>
     </section>
