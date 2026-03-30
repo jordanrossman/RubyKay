@@ -35,6 +35,14 @@ export default function CaseStudies() {
       image: "/screenshots/dailyrabbi-hero.png",
       link: "https://www.dailyrabbi.com",
     },
+    {
+      name: "GoodPar",
+      tagline: "Play. Rate. Share.",
+      description:
+        "A golf course rating app that goes beyond stars. Rate courses across six categories, share branded content, and build a network of trusted golf opinions.",
+      image: "/screenshots/goodpar-hero.png",
+      link: "https://goodpar.app",
+    },
   ];
 
   // Mobile carousel state
@@ -207,8 +215,8 @@ export default function CaseStudies() {
           </FadeIn>
         </div>
 
-        {/* Desktop: 3-column grid */}
-        <div className="hidden lg:grid lg:grid-cols-3 gap-8">
+        {/* Desktop: grid */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-8">
           {caseStudies.map((study, index) => (
             <ScaleOnScroll key={study.name}>
               <motion.div
