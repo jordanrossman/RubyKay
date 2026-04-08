@@ -3,6 +3,83 @@ import { useRef } from "react";
 import FadeIn from "./animations/FadeIn";
 import StaggerContainer, { StaggerItem } from "./animations/StaggerContainer";
 
+type FilledCell = { col: number; row: number; opacity: number };
+
+function GridPattern({ filled }: { filled: FilledCell[] }) {
+  const CELL = 28;
+  const mask =
+    "radial-gradient(ellipse 120% 100% at 100% 0%, #000 10%, rgba(0,0,0,0.75) 45%, transparent 95%)";
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0"
+      style={{ WebkitMaskImage: mask, maskImage: mask }}
+    >
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(248,113,113,0.22) 1px, transparent 1px), linear-gradient(to bottom, rgba(248,113,113,0.22) 1px, transparent 1px)",
+          backgroundSize: `${CELL}px ${CELL}px`,
+          backgroundPosition: "right top",
+        }}
+      />
+      {filled.map((c, i) => (
+        <div
+          key={i}
+          className="absolute"
+          style={{
+            right: `${c.col * CELL + 1}px`,
+            top: `${c.row * CELL + 1}px`,
+            width: `${CELL - 1}px`,
+            height: `${CELL - 1}px`,
+            background: `rgba(220,38,38,${c.opacity})`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+const cellSets: FilledCell[][] = [
+  [
+    { col: 1, row: 0, opacity: 0.55 },
+    { col: 3, row: 1, opacity: 0.25 },
+    { col: 0, row: 2, opacity: 0.15 },
+    { col: 5, row: 0, opacity: 0.35 },
+  ],
+  [
+    { col: 0, row: 1, opacity: 0.5 },
+    { col: 2, row: 0, opacity: 0.2 },
+    { col: 4, row: 2, opacity: 0.32 },
+    { col: 6, row: 1, opacity: 0.18 },
+  ],
+  [
+    { col: 2, row: 1, opacity: 0.55 },
+    { col: 0, row: 0, opacity: 0.22 },
+    { col: 4, row: 0, opacity: 0.13 },
+    { col: 3, row: 2, opacity: 0.3 },
+  ],
+  [
+    { col: 1, row: 2, opacity: 0.45 },
+    { col: 3, row: 0, opacity: 0.28 },
+    { col: 5, row: 1, opacity: 0.18 },
+    { col: 0, row: 1, opacity: 0.12 },
+  ],
+  [
+    { col: 0, row: 0, opacity: 0.5 },
+    { col: 2, row: 2, opacity: 0.2 },
+    { col: 4, row: 1, opacity: 0.3 },
+    { col: 6, row: 0, opacity: 0.15 },
+  ],
+  [
+    { col: 1, row: 1, opacity: 0.55 },
+    { col: 3, row: 2, opacity: 0.22 },
+    { col: 5, row: 0, opacity: 0.3 },
+    { col: 0, row: 3, opacity: 0.1 },
+  ],
+];
+
 export default function WhyRubyKay() {
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -176,9 +253,9 @@ export default function WhyRubyKay() {
           staggerDelay={0.1}
         >
           {differentiators.map((item, index) => (
-            <StaggerItem key={index}>
+            <StaggerItem key={index} className="h-full">
               <motion.div
-                className="p-5 sm:p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
+                className="relative h-full overflow-hidden p-5 sm:p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
                 whileHover={{
                   backgroundColor: "rgba(255,255,255,0.1)",
                   borderColor: "rgba(255,255,255,0.2)",
@@ -186,19 +263,15 @@ export default function WhyRubyKay() {
                 }}
                 transition={{ duration: 0.3 }}
               >
-                <motion.div
-                  className="w-10 h-10 rounded-lg bg-ruby-600/20 text-ruby-400 flex items-center justify-center mb-4"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  {item.icon}
-                </motion.div>
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  {item.description}
-                </p>
+                <GridPattern filled={cellSets[index % cellSets.length]} />
+                <div className="relative pt-20">
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
               </motion.div>
             </StaggerItem>
           ))}

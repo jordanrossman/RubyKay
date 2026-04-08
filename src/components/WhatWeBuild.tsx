@@ -6,47 +6,31 @@ export default function WhatWeBuild() {
   const services = [
     {
       number: "01",
+      label: "Web",
       title: "Consumer-Facing Websites",
       description:
         "Marketing sites, landing pages, and client portals that convert. Fast, polished, and built to integrate with your existing systems.",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-        </svg>
-      ),
     },
     {
       number: "02",
+      label: "Internal",
       title: "Internal Tools & Dashboards",
       description:
         "Team portals, admin panels, and productivity dashboards. Built for how your team actually works—not how a vendor thinks they should.",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-        </svg>
-      ),
     },
     {
       number: "03",
+      label: "AI",
       title: "Advanced AI Tools",
       description:
         "Custom AI assistants, automation workflows, and intelligent features. From chatbots to image processing—AI that fits your business, not the other way around.",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      ),
     },
     {
       number: "04",
+      label: "Mobile",
       title: "Mobile Apps",
       description:
         "Native iPhone and Android apps for your team and customers. Field-ready tools that work offline and sync when they need to.",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-        </svg>
-      ),
     },
   ];
 
@@ -78,32 +62,61 @@ export default function WhatWeBuild() {
           {services.map((service) => (
             <StaggerItem key={service.number}>
               <motion.div
-                className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 h-full"
-                whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
+                className="group relative h-full bg-white rounded-2xl border border-slate-200 overflow-hidden"
+                whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                {/* Icon & Number */}
-                <div className="flex items-center gap-4 mb-6">
-                  <motion.div
-                    className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600"
-                    whileHover={{ scale: 1.05, backgroundColor: "rgb(241 245 249)" }}
-                  >
-                    {service.icon}
-                  </motion.div>
-                  <span className="text-sm font-medium text-slate-400">
-                    {service.number}
-                  </span>
+                {/* Top hairline accent that fills on hover */}
+                <div className="absolute inset-x-0 top-0 h-px bg-slate-200" />
+                <motion.div
+                  className="absolute left-0 top-0 h-px bg-ruby-600"
+                  initial={{ width: "20%" }}
+                  whileHover={{ width: "100%" }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                />
+
+                {/* Oversized serif watermark numeral */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -right-2 -top-6 select-none font-serif leading-none text-[11rem] text-ruby-600/[0.06] group-hover:text-ruby-600/[0.10] transition-colors duration-500"
+                >
+                  {service.number}
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                  {service.title}
-                </h3>
+                <div className="relative p-8 sm:p-10 h-full flex flex-col">
+                  {/* Eyebrow row */}
+                  <div className="flex items-center gap-3 mb-10">
+                    <span className="text-[11px] font-mono font-medium tracking-[0.18em] uppercase text-ruby-600">
+                      {service.number}
+                    </span>
+                    <span className="h-px w-8 bg-ruby-600/40" />
+                    <span className="text-[11px] font-mono tracking-[0.18em] uppercase text-slate-500">
+                      {service.label}
+                    </span>
+                  </div>
 
-                {/* Description */}
-                <p className="text-slate-600 leading-relaxed">
-                  {service.description}
-                </p>
+                  {/* Title */}
+                  <h3 className="text-2xl sm:text-[1.75rem] font-serif text-slate-900 leading-tight mb-4 max-w-[22ch]">
+                    {service.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-slate-600 leading-relaxed max-w-prose">
+                    {service.description}
+                  </p>
+
+                  {/* Bottom rule + chevron */}
+                  <div className="mt-auto pt-10 flex items-center gap-3">
+                    <div className="h-px flex-1 bg-slate-200" />
+                    <motion.span
+                      className="text-ruby-600 text-lg leading-none"
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 4 }}
+                    >
+                      →
+                    </motion.span>
+                  </div>
+                </div>
               </motion.div>
             </StaggerItem>
           ))}
