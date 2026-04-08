@@ -2,64 +2,85 @@ import { motion } from "framer-motion";
 import FadeIn from "./animations/FadeIn";
 import StaggerContainer, { StaggerItem } from "./animations/StaggerContainer";
 
+type FilledCell = { col: number; row: number; opacity: number };
+
+function GridPattern({ filled }: { filled: FilledCell[] }) {
+  const CELL = 28;
+  const mask =
+    "radial-gradient(ellipse 120% 100% at 100% 0%, #000 10%, rgba(0,0,0,0.75) 45%, transparent 95%)";
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0"
+      style={{
+        WebkitMaskImage: mask,
+        maskImage: mask,
+      }}
+    >
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(185,28,28,0.18) 1px, transparent 1px), linear-gradient(to bottom, rgba(185,28,28,0.18) 1px, transparent 1px)",
+          backgroundSize: `${CELL}px ${CELL}px`,
+          backgroundPosition: "right top",
+        }}
+      />
+      {filled.map((c, i) => (
+        <div
+          key={i}
+          className="absolute"
+          style={{
+            right: `${c.col * CELL + 1}px`,
+            top: `${c.row * CELL + 1}px`,
+            width: `${CELL - 1}px`,
+            height: `${CELL - 1}px`,
+            background: `rgba(185,28,28,${c.opacity})`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function WhoWeWorkWith() {
-  const audiences = [
+  const audiences: {
+    title: string;
+    description: string;
+    cells: FilledCell[];
+  }[] = [
     {
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-          />
-        </svg>
-      ),
+      cells: [
+        { col: 1, row: 0, opacity: 0.55 },
+        { col: 3, row: 1, opacity: 0.25 },
+        { col: 0, row: 2, opacity: 0.15 },
+        { col: 5, row: 0, opacity: 0.35 },
+        { col: 2, row: 3, opacity: 0.1 },
+      ],
       title: "Growing Teams",
       description:
         "Companies with 10-100 people who want proprietary tools that give them a competitive edge.",
     },
     {
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-          />
-        </svg>
-      ),
+      cells: [
+        { col: 0, row: 1, opacity: 0.45 },
+        { col: 2, row: 0, opacity: 0.2 },
+        { col: 4, row: 2, opacity: 0.3 },
+        { col: 1, row: 3, opacity: 0.12 },
+        { col: 6, row: 1, opacity: 0.18 },
+      ],
       title: "Scaling Organizations",
       description:
         "Mid-size companies looking to stand out with custom tech that drives efficiency and retention.",
     },
     {
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M13 10V3L4 14h7v7l9-11h-7z"
-          />
-        </svg>
-      ),
+      cells: [
+        { col: 2, row: 1, opacity: 0.5 },
+        { col: 0, row: 0, opacity: 0.22 },
+        { col: 4, row: 0, opacity: 0.13 },
+        { col: 3, row: 2, opacity: 0.3 },
+        { col: 1, row: 3, opacity: 0.1 },
+      ],
       title: "Operations Leaders",
       description:
         "Directors and managers who need to systematize workflows and eliminate manual bottlenecks.",
@@ -93,23 +114,19 @@ export default function WhoWeWorkWith() {
           {audiences.map((audience, index) => (
             <StaggerItem key={index}>
               <motion.div
-                className="feature-card h-full"
+                className="feature-card h-full relative overflow-hidden"
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <motion.div
-                  className="w-12 h-12 rounded-xl bg-ruby-50 text-ruby-600 flex items-center justify-center mb-6"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  {audience.icon}
-                </motion.div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                  {audience.title}
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  {audience.description}
-                </p>
+                <GridPattern filled={audience.cells} />
+                <div className="relative pt-24">
+                  <h3 className="text-xl font-semibold text-slate-900 mb-3">
+                    {audience.title}
+                  </h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    {audience.description}
+                  </p>
+                </div>
               </motion.div>
             </StaggerItem>
           ))}
