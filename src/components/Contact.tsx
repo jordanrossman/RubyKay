@@ -176,6 +176,27 @@ export default function Contact() {
                 </ul>
               </div>
             </FadeIn>
+
+            {/* Direct email */}
+            <FadeIn delay={0.5}>
+              <div className="mt-10 pt-8 border-t border-slate-200">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="h-px w-8 bg-ruby-600/50" />
+                  <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-ruby-600">
+                    Or skip the form
+                  </span>
+                </div>
+                <p className="text-slate-600 leading-relaxed mb-3">
+                  Prefer to keep it simple? Email me directly to book a discovery call.
+                </p>
+                <div className="inline-flex items-baseline font-serif text-2xl sm:text-3xl text-slate-900 select-all">
+                  <span className="relative">
+                    jordan@rubykaylabs.com
+                    <span className="absolute left-0 -bottom-1 h-px w-full bg-ruby-600/40" />
+                  </span>
+                </div>
+              </div>
+            </FadeIn>
           </div>
 
           {/* Right Column - Form */}
