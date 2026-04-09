@@ -13,16 +13,8 @@ function AboutHero() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          <span className="section-label">Founder &amp; Builder</span>
-        </motion.div>
-
         <motion.h1
-          className="mt-8 text-4xl sm:text-5xl lg:text-[4.5rem] font-serif text-slate-950 leading-[1.05] tracking-[-0.02em]"
+          className="text-4xl sm:text-5xl lg:text-[4.5rem] font-serif text-slate-950 leading-[1.05] tracking-[-0.02em]"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
@@ -84,12 +76,8 @@ function AboutBio() {
 
           {/* Right column — text */}
           <div>
-            <FadeIn>
-              <span className="section-label">About Jordan</span>
-            </FadeIn>
-
             <FadeIn delay={0.1}>
-              <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-950">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-950">
                 Builder, not consultant.
               </h2>
             </FadeIn>

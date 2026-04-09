@@ -39,9 +39,6 @@ export default function WhatWeBuild() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-2xl mb-16">
-          <FadeIn>
-            <div className="section-label mb-6">What We Build</div>
-          </FadeIn>
           <FadeIn delay={0.1}>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
               We don&apos;t sell templates. We build what your business{" "}

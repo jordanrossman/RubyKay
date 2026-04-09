@@ -113,9 +113,6 @@ export default function Contact() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Left Column - Text */}
           <div>
-            <FadeIn>
-              <div className="section-label mb-6">Let&apos;s Build</div>
-            </FadeIn>
             <FadeIn delay={0.1}>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
                 Ready to build something that{" "}
