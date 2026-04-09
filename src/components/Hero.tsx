@@ -72,37 +72,6 @@ function GlowWord({
   );
 }
 
-// Character-by-character reveal for extra impact
-function TypewriterText({
-  text,
-  delay = 0,
-  className = "",
-}: {
-  text: string;
-  delay?: number;
-  className?: string;
-}) {
-  return (
-    <span className={className}>
-      {text.split("").map((char, index) => (
-        <motion.span
-          key={index}
-          className="inline-block"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.1,
-            delay: delay + index * 0.03,
-            ease: "easeOut",
-          }}
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
-      ))}
-    </span>
-  );
-}
-
 export default function Hero() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -171,18 +140,6 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
           >
-            {/* Section Label */}
-            <motion.div variants={itemVariants} className="mb-8">
-              <motion.span
-                className="section-label"
-                initial={{ opacity: 0, letterSpacing: "0.5em" }}
-                animate={{ opacity: 1, letterSpacing: "0.2em" }}
-                transition={{ duration: 1, delay: 0.2 }}
-              >
-                <TypewriterText text="Custom AI & Software" delay={0.5} />
-              </motion.span>
-            </motion.div>
-
             {/* Headline - The Star of the Show */}
             <h1 className="text-4xl sm:text-5xl lg:text-[5rem] xl:text-[6rem] font-serif text-slate-950 leading-[1.05] mb-8 perspective-1000">
               <span className="block overflow-hidden">
