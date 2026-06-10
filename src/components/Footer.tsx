@@ -1,107 +1,143 @@
+import { motion } from "framer-motion";
+import { Reveal } from "./animations/Reveal";
+
+/* ----------------------------------------------------------------
+   The Colophon — a footer that closes like the last page of a book,
+   pressed shut with the studio's seal.
+---------------------------------------------------------------- */
+
+/** The studio seal — stamps itself onto the page when reached. */
+function Seal() {
+  return (
+    <motion.svg
+      viewBox="0 0 64 64"
+      className="w-12 h-12 shrink-0"
+      aria-label="RubyKay Labs seal"
+      initial={{ scale: 1.8, rotate: 8, opacity: 0 }}
+      whileInView={{ scale: 1, rotate: -8, opacity: 1 }}
+      viewport={{ once: true, amount: 0.8 }}
+      transition={{ type: "spring", stiffness: 320, damping: 17, delay: 0.35 }}
+    >
+      <polygon
+        points="32,3 57,17.5 57,46.5 32,61 7,46.5 7,17.5"
+        fill="none"
+        stroke="var(--ruby-500)"
+        strokeWidth="1.5"
+      />
+      <polygon
+        points="32,9 51.8,20.5 51.8,43.5 32,55 12.2,43.5 12.2,20.5"
+        fill="none"
+        stroke="var(--ruby-500)"
+        strokeWidth="0.5"
+        opacity="0.5"
+      />
+      <text
+        x="32"
+        y="40.5"
+        textAnchor="middle"
+        fontFamily="Fraunces, Georgia, serif"
+        fontSize="22"
+        fill="var(--ruby-400)"
+      >
+        RK
+      </text>
+    </motion.svg>
+  );
+}
+
+const INDEX_LINKS = [
+  { label: "The Work", href: "/#work" },
+  { label: "Capabilities", href: "/#capabilities" },
+  { label: "Method", href: "/#method" },
+  { label: "Principal", href: "/about" },
+  { label: "Commence", href: "/#contact" },
+];
+
+const PRODUCT_LINKS = [
+  { label: "PropertyBrushAI", href: "https://www.propertybrushai.com" },
+  { label: "INVSBL", href: "https://www.goinvsbl.com" },
+  { label: "Daily Rabbi", href: "https://www.dailyrabbi.com" },
+  { label: "GoodPar", href: "https://goodpar.app" },
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = {
-    site: [
-      { label: "Services", href: "#services" },
-      { label: "Case Studies", href: "#case-studies" },
-      { label: "Process", href: "#process" },
-      { label: "Contact", href: "#contact" },
-    ],
-    products: [
-      {
-        label: "PropertyBrushAI",
-        href: "https://www.propertybrushai.com",
-        external: true,
-      },
-      { label: "INVSBL", href: "https://www.goinvsbl.com", external: true },
-      { label: "Daily Rabbi", href: "https://www.dailyrabbi.com", external: true },
-      { label: "GoodPar", href: "https://goodpar.app", external: true },
-    ],
-  };
-
   return (
-    <footer className="bg-slate-900 text-white py-16 lg:py-20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Top Section */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <a href="/" className="inline-block mb-4">
-              <img
-                src="/logo.png"
-                alt="RubyKay Labs"
-                className="h-8 w-auto brightness-0 invert"
-              />
+    <footer
+      data-chapter="∎ — End of File"
+      className="bg-ink-950 text-bone-100 border-t border-bone-100/10 overflow-hidden"
+    >
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-24 pt-20 lg:pt-28 pb-10">
+        {/* The signature */}
+        <Reveal amount={0.2}>
+          <p className="display text-[clamp(2.8rem,9vw,8rem)] leading-none text-bone-50">
+            RubyKay Labs<span className="text-ruby-500">.</span>
+          </p>
+        </Reveal>
+
+        <div className="grid sm:grid-cols-3 gap-12 mt-16 lg:mt-24">
+          <div>
+            <h3 className="overline-label text-bone-500 mb-5">Index</h3>
+            <ul className="space-y-3">
+              {INDEX_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="link-draw text-bone-300 hover:text-bone-50 transition-colors text-sm"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="overline-label text-bone-500 mb-5">Products</h3>
+            <ul className="space-y-3">
+              {PRODUCT_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-draw text-bone-300 hover:text-bone-50 transition-colors text-sm inline-flex items-center gap-2"
+                  >
+                    {link.label}
+                    <span aria-hidden className="text-bone-500 text-xs">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="overline-label text-bone-500 mb-5">Direct</h3>
+            <a
+              href="mailto:jordan@rubykaylabs.com"
+              className="link-draw font-serif text-xl text-bone-200"
+            >
+              jordan@rubykaylabs.com
             </a>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Custom AI & software products for growing companies.
+            <p className="text-bone-500 text-sm leading-relaxed mt-4 max-w-xs">
+              A private software studio building custom AI and software, to
+              order, for serious operators.
             </p>
           </div>
-
-          {/* Site Links */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4">
-              Site
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.site.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-slate-300 hover:text-white transition-colors text-sm"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Products */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4">
-              Products
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.products.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noopener noreferrer" : undefined}
-                    className="text-slate-300 hover:text-white transition-colors text-sm inline-flex items-center gap-1"
-                  >
-                    {link.label}
-                    {link.external && (
-                      <svg
-                        className="w-3 h-3"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                    )}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-slate-800 pt-8">
-          <p className="text-slate-500 text-sm">
-            &copy; {currentYear} RubyKay Labs. All rights reserved.
+        {/* Colophon — signed and sealed */}
+        <div className="border-t border-bone-100/10 mt-16 lg:mt-20 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+          <p className="overline-label text-bone-500">
+            © {currentYear} RubyKay Labs. All rights reserved.
           </p>
+          <div className="flex items-center gap-5">
+            <p className="overline-label text-bone-500">
+              Designed &amp; built in-house. No template.
+            </p>
+            <Seal />
+          </div>
         </div>
       </div>
     </footer>

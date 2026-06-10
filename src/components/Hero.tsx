@@ -1,76 +1,106 @@
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import MagneticButton from "./animations/MagneticButton";
+import { EASE } from "./animations/Reveal";
 
-// Animated word component with spring physics
-function AnimatedWord({
+/** One masked headline line, with room for descenders inside the clip. */
+function Line({
   children,
-  delay = 0,
+  delay,
   className = "",
 }: {
-  children: string;
-  delay?: number;
+  children: React.ReactNode;
+  delay: number;
   className?: string;
 }) {
   return (
+    <span className={`block overflow-hidden pb-[0.22em] -mb-[0.22em] ${className}`}>
+      <motion.span
+        className="block will-change-transform"
+        initial={{ y: "135%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 1.1, delay, ease: EASE }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
+/** Corner caption pinned to the plate frame. */
+function Corner({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className: string;
+}) {
+  return (
     <motion.span
-      className={`inline-block ${className}`}
-      initial={{ opacity: 0, y: 80, rotateX: -90 }}
-      animate={{ opacity: 1, y: 0, rotateX: 0 }}
-      transition={{
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        delay,
-      }}
+      className={`absolute bg-ink-950 px-3 overline-label text-bone-500 whitespace-nowrap ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.2, delay: 2.2 }}
     >
       {children}
     </motion.span>
   );
 }
 
-// Special animated word with gradient, glow, and emphasis
-function GlowWord({
-  children,
-  delay = 0,
-}: {
-  children: string;
-  delay?: number;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
-
+/**
+ * The plate frame draws itself: top edge first, then the sides,
+ * then the bottom — like a draftsman ruling a sheet.
+ */
+function Frame() {
+  const edge = "absolute bg-bone-100/15";
   return (
-    <motion.span
-      className="inline-block relative cursor-default"
-      initial={{ opacity: 0, y: 80, rotateX: -90, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-      transition={{
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        delay,
-      }}
-      whileHover={{ scale: 1.02 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Subtle glow effect behind text */}
+    <div className="pointer-events-none absolute inset-4 sm:inset-6 lg:inset-8">
       <motion.span
-        className="absolute -inset-2 blur-2xl bg-ruby-500/20 rounded-full pointer-events-none"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{
-          opacity: isHovered ? 0.4 : 0.25,
-          scale: isHovered ? 1.1 : 1,
-        }}
-        transition={{ duration: 0.5, delay: delay + 0.3 }}
+        className={`${edge} top-0 left-0 right-0 h-px origin-left`}
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.1, delay: 1.1, ease: EASE }}
       />
-      {/* Gradient text - italic for emphasis */}
-      <span className="relative italic font-semibold bg-gradient-to-r from-ruby-600 via-ruby-500 to-ruby-600 bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient-shift pr-[0.15em]">
-        {children}
-      </span>
-    </motion.span>
+      <motion.span
+        className={`${edge} top-0 left-0 bottom-0 w-px origin-top`}
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 1.0, delay: 1.5, ease: EASE }}
+      />
+      <motion.span
+        className={`${edge} top-0 right-0 bottom-0 w-px origin-top`}
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 1.0, delay: 1.5, ease: EASE }}
+      />
+      <motion.span
+        className={`${edge} bottom-0 left-0 right-0 h-px origin-right`}
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.1, delay: 1.9, ease: EASE }}
+      />
+
+      <Corner className="top-0 left-6 sm:left-10 -translate-y-1/2">
+        RubyKay Labs
+      </Corner>
+      <Corner className="top-0 right-6 sm:right-10 -translate-y-1/2">
+        N° 001
+      </Corner>
+      <Corner className="hidden sm:block bottom-0 left-10 translate-y-1/2">
+        AI-Native · Built to Order
+      </Corner>
+      <Corner className="hidden sm:block bottom-0 right-10 translate-y-1/2">
+        North America
+      </Corner>
+    </div>
   );
 }
+
+const LEDGER: { label: string; value: string }[] = [
+  { label: "Practice", value: "AI & Custom Software" },
+  { label: "First Version", value: "Weeks, not quarters" },
+  { label: "Ownership", value: "Yours, outright" },
+];
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -79,148 +109,99 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Smooth scroll-linked transforms
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  const y = useTransform(smoothProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(smoothProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.5], [1, 0.95]);
-
-  // Parallax for background watermark
-  const watermarkY = useTransform(smoothProgress, [0, 1], [0, -100]);
-  const watermarkOpacity = useTransform(smoothProgress, [0, 0.3], [0.03, 0]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100vh] bg-hero-gradient overflow-hidden"
+      data-chapter="01 — Thesis"
+      className="relative bg-ink-950 text-bone-100 min-h-screen flex flex-col overflow-hidden"
     >
-      {/* Large background watermark */}
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
-        style={{ y: watermarkY, opacity: watermarkOpacity }}
-      >
-        <span className="text-[20vw] font-serif font-bold text-slate-900 whitespace-nowrap">
-          RUBYKAY
-        </span>
-      </motion.div>
+      <Frame />
 
       <motion.div
-        style={{ y, opacity, scale }}
-        className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-32"
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative flex-1 flex flex-col max-w-[1440px] w-full mx-auto px-10 sm:px-16 lg:px-24"
       >
-        <div className="flex flex-col items-center justify-center min-h-[60vh] sm:min-h-[70vh] text-center">
-          {/* Text Content */}
+        {/* Headline block */}
+        <div className="flex-1 flex flex-col justify-center pt-32 pb-16">
           <motion.div
-            className="max-w-4xl"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+            className="flex items-center gap-4 mb-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.25 }}
           >
-            {/* Headline - The Star of the Show */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[5rem] xl:text-[6rem] font-serif text-slate-950 leading-[1.05] mb-8 perspective-1000">
-              <span className="block overflow-hidden">
-                <AnimatedWord delay={0.3}>Software</AnimatedWord>{" "}
-                <AnimatedWord delay={0.4}>built</AnimatedWord>{" "}
-                <AnimatedWord delay={0.5}>around</AnimatedWord>
-              </span>
-              <span className="block">
-                <GlowWord delay={0.7}>your</GlowWord>{" "}
-                <AnimatedWord delay={0.85}>business,</AnimatedWord>{" "}
-                <AnimatedWord delay={0.95}>not</AnimatedWord>{" "}
-                <AnimatedWord delay={1.05}>the</AnimatedWord>{" "}
-                <AnimatedWord delay={1.15}>other</AnimatedWord>{" "}
-                <AnimatedWord delay={1.25}>way.</AnimatedWord>
-              </span>
-            </h1>
+            <motion.span
+              className="h-px w-12 bg-ruby-500 origin-left"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
+            />
+            <span className="overline-label text-ruby-400">
+              A Private Software Studio
+            </span>
+          </motion.div>
 
-            {/* Subhead */}
+          <h1 className="display text-[clamp(3.2rem,9.5vw,9rem)] leading-[0.98] text-bone-50">
+            <Line delay={0.45}>Software your</Line>
+            <Line delay={0.58}>competitors</Line>
+            <Line delay={0.71}>
+              <em className="text-ruby-400 pr-[0.06em]">can&rsquo;t buy.</em>
+            </Line>
+          </h1>
+
+          <div className="mt-12 lg:mt-14 lg:flex lg:items-end lg:justify-between lg:gap-16">
             <motion.p
-              className="text-lg sm:text-xl lg:text-2xl text-slate-600 leading-relaxed mb-12 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 40 }}
+              className="max-w-xl text-lg lg:text-xl leading-relaxed text-bone-400"
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 50,
-                damping: 20,
-                delay: 1.3,
-              }}
+              transition={{ duration: 1, delay: 1.05, ease: EASE }}
             >
-              Custom AI tools and software that fit how your team actually works—not
-              another off-the-shelf product you have to bend your business around.
+              RubyKay Labs designs and builds custom AI systems and software for
+              companies that refuse to run on the same tools as everyone else.
+              Built around your operation. Owned by you. Live in weeks.
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-              initial={{ opacity: 0, y: 40 }}
+              className="flex flex-col sm:flex-row gap-4 mt-10 lg:mt-0 shrink-0"
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 50,
-                damping: 20,
-                delay: 1.5,
-              }}
+              transition={{ duration: 1, delay: 1.2, ease: EASE }}
             >
-              <MagneticButton as="a" href="#contact" className="btn-primary w-full sm:w-auto">
-                See If We&apos;re a Fit
-                <motion.svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 4 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </motion.svg>
+              <MagneticButton as="a" href="#contact" strength={0.15} className="btn-bone">
+                Start the Conversation
+                <span aria-hidden>→</span>
               </MagneticButton>
-              <MagneticButton
-                as="a"
-                href="#case-studies"
-                className="btn-secondary w-full sm:w-auto"
-              >
-                See What We&apos;ve Built
-              </MagneticButton>
+              <a href="#work" className="btn-hairline text-bone-100">
+                Examine the Work
+              </a>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
 
-      </motion.div>
-
-      {/* Scroll indicator - hidden on very small screens */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:block"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.5 }}
-      >
+        {/* The ledger strip */}
         <motion.div
-          className="w-6 h-10 border-2 border-slate-300 rounded-full flex justify-center"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="mb-16 lg:mb-20 border-t border-bone-100/15"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 1.5 }}
         >
-          <motion.div
-            className="w-1.5 h-3 bg-slate-400 rounded-full mt-2"
-            animate={{ opacity: [1, 0.3, 1], y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
+          <dl className="grid grid-cols-1 sm:grid-cols-3">
+            {LEDGER.map((item, i) => (
+              <div
+                key={item.label}
+                className={`py-5 sm:py-6 border-bone-100/15 ${
+                  i > 0 ? "border-t sm:border-t-0 sm:border-l sm:pl-8" : ""
+                }`}
+              >
+                <dt className="overline-label text-bone-500 mb-2">{item.label}</dt>
+                <dd className="font-serif text-lg lg:text-xl text-bone-200">
+                  {item.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </motion.div>
       </motion.div>
     </section>

@@ -1,38 +1,60 @@
 import { motion } from "framer-motion";
-import FadeIn from "./animations/FadeIn";
-import StaggerContainer, { StaggerItem } from "./animations/StaggerContainer";
+import { Reveal, Rule, Rise, EASE } from "./animations/Reveal";
+
+/* ----------------------------------------------------------------
+   About — the principal's page of the dossier.
+---------------------------------------------------------------- */
 
 function AboutHero() {
   return (
-    <section className="min-h-[55vh] flex items-center relative overflow-hidden bg-hero-gradient">
-      {/* Watermark */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <span className="text-[20vw] font-serif font-bold text-slate-900 opacity-[0.03]">
-          ABOUT
-        </span>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full text-center relative z-10">
-        <motion.h1
-          className="text-4xl sm:text-5xl lg:text-[4.5rem] font-serif text-slate-950 leading-[1.05] tracking-[-0.02em]"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+    <section className="relative bg-ink-950 text-bone-100 overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-24 pt-44 pb-24 lg:pt-56 lg:pb-32">
+        <motion.div
+          className="flex items-center gap-4 mb-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
         >
-          The builder behind
-          <br />
-          <span className="italic font-semibold bg-gradient-to-r from-ruby-600 via-ruby-500 to-ruby-600 bg-clip-text text-transparent">
-            RubyKay Labs.
+          <motion.span
+            className="h-px w-12 bg-ruby-500 origin-left"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
+          />
+          <span className="overline-label text-ruby-400">The Principal</span>
+        </motion.div>
+
+        <h1 className="display text-[clamp(3rem,8.5vw,7.5rem)] leading-[0.98] text-bone-50">
+          <span className="block overflow-hidden pb-[0.22em] -mb-[0.22em]">
+            <motion.span
+              className="block"
+              initial={{ y: "135%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 1.1, delay: 0.4, ease: EASE }}
+            >
+              Operator first.
+            </motion.span>
           </span>
-        </motion.h1>
+          <span className="block overflow-hidden pb-[0.22em] -mb-[0.22em]">
+            <motion.span
+              className="block"
+              initial={{ y: "135%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 1.1, delay: 0.55, ease: EASE }}
+            >
+              <em className="text-ruby-400">Builder always.</em>
+            </motion.span>
+          </span>
+        </h1>
 
         <motion.p
-          className="mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed max-w-xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
+          className="mt-10 text-lg lg:text-xl text-bone-400 leading-relaxed max-w-xl"
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 1, delay: 0.9, ease: EASE }}
         >
-          Building software that teams actually use—shipped products, not slide decks.
+          Jordan Rossman founded RubyKay Labs to build software the way an
+          owner would — shipped products, not slide decks.
         </motion.p>
       </div>
     </section>
@@ -41,87 +63,90 @@ function AboutHero() {
 
 function AboutBio() {
   return (
-    <section className="py-24 lg:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          {/* Left column — photo */}
-          <FadeIn direction="right">
-            <div className="relative">
-              {/* Decorative blob */}
-              <div className="absolute -inset-4 bg-gradient-to-br from-ruby-50 to-transparent rounded-3xl -z-10" />
+    <section className="bg-bone-50 text-ink-950 py-28 lg:py-40 overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-24">
+        <div className="flex items-baseline justify-between mb-4">
+          <span className="overline-label text-ruby-600">Jordan Rossman</span>
+          <span className="overline-label text-ink-500 hidden sm:block">
+            Founder &amp; Principal Builder
+          </span>
+        </div>
+        <Rule className="bg-ink-950/15" />
 
-              {/* Photo */}
-              <div className="rounded-2xl overflow-hidden shadow-[0_25px_50px_rgba(0,0,0,0.12)] relative aspect-[4/5] lg:aspect-[3/4]">
+        <div className="mt-14 lg:mt-20 grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          {/* Portrait plate */}
+          <Rise className="lg:col-span-5" distance={36}>
+            <div className="relative max-w-md">
+              <div className="border border-ink-950/15 bg-bone-100 p-3 sm:p-4 shadow-[0_40px_80px_-40px_rgba(12,10,9,0.35)]">
                 <img
                   src="/jordan-rossman.jpg"
                   alt="Jordan Rossman"
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto aspect-[4/5] object-cover"
                 />
-                {/* Bottom gradient overlay */}
-                <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/10 to-transparent" />
               </div>
-
-              {/* Floating badge */}
-              <div className="absolute bottom-6 right-6 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center gap-2.5">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ruby-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-ruby-500" />
+              <div className="flex items-center justify-between mt-3 px-1">
+                <span className="overline-label text-ink-500">
+                  The Principal
                 </span>
-                <span className="text-sm font-medium text-slate-700">
-                  Available for projects
+                <span className="inline-flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ruby-500 opacity-60" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-ruby-600" />
+                  </span>
+                  <span className="overline-label text-ink-500">
+                    Available
+                  </span>
                 </span>
               </div>
             </div>
-          </FadeIn>
+          </Rise>
 
-          {/* Right column — text */}
-          <div>
-            <FadeIn delay={0.1}>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-950">
+          {/* Bio */}
+          <div className="lg:col-span-7 lg:pt-2">
+            <Reveal>
+              <h2 className="display text-4xl lg:text-5xl text-ink-950">
                 Builder, not consultant.
               </h2>
-            </FadeIn>
+            </Reveal>
 
-            <StaggerContainer className="mt-8 space-y-6" staggerDelay={0.12} delay={0.2}>
-              <StaggerItem>
-                <p className="text-slate-600 text-lg leading-relaxed">
-                  Jordan Rossman spent 12 years building and running real estate
-                  businesses — the kind where you&apos;re responsible for every
-                  decision, every dollar, and every outcome. No safety net. No one
-                  else to blame. That experience shaped how he thinks about
-                  business: outcomes first, everything else second.
+            <Rise delay={0.15}>
+              <div className="mt-8 space-y-6 max-w-xl">
+                <p className="text-lg text-ink-600 leading-relaxed">
+                  Jordan Rossman spent 12 years building and running real
+                  estate businesses — the kind where you&rsquo;re responsible
+                  for every decision, every dollar, and every outcome. No
+                  safety net. No one else to blame. That experience shaped how
+                  he thinks about business: outcomes first, everything else
+                  second.
                 </p>
-              </StaggerItem>
-              <StaggerItem>
-                <p className="text-slate-600 text-lg leading-relaxed">
-                  RubyKay Labs is the product of that mindset applied to software.
-                  Jordan founded it to do what most dev shops won&apos;t — sit on
-                  the operator side of the table, learn how the business actually
-                  runs, and build tools that move the needle instead of checking a
-                  spec box. Custom AI integrations, internal platforms,
-                  client-facing products. Built to ship, not to demo.
+                <p className="text-lg text-ink-600 leading-relaxed">
+                  RubyKay Labs is the product of that mindset applied to
+                  software. Jordan founded it to do what most dev shops
+                  won&rsquo;t — sit on the operator side of the table, learn
+                  how the business actually runs, and build tools that move
+                  the needle instead of checking a spec box. Custom AI
+                  integrations, internal platforms, client-facing products.
+                  Built to ship, not to demo.
                 </p>
-              </StaggerItem>
-              <StaggerItem>
-                <p className="text-slate-600 text-lg leading-relaxed">
-                  He&apos;s not a consultant who&apos;s read the books. He&apos;s
-                  an operator who&apos;s lived the problems — and now builds the
-                  software to solve them.
+                <p className="text-lg text-ink-600 leading-relaxed">
+                  He&rsquo;s not a consultant who&rsquo;s read the books.
+                  He&rsquo;s an operator who&rsquo;s lived the problems — and
+                  now builds the software to solve them.
                 </p>
-              </StaggerItem>
-            </StaggerContainer>
+              </div>
+            </Rise>
 
-            {/* CTA buttons */}
-            <FadeIn delay={0.4}>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a href="/#contact" className="btn-primary">
+            <Rise delay={0.25}>
+              <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                <a href="/#contact" className="btn-ink">
                   Work With Jordan
+                  <span aria-hidden>→</span>
                 </a>
-                <a href="/#case-studies" className="btn-secondary">
-                  See What We&apos;ve Built
+                <a href="/#work" className="btn-hairline text-ink-950">
+                  Examine the Work
                 </a>
               </div>
-            </FadeIn>
+            </Rise>
           </div>
         </div>
       </div>
@@ -131,41 +156,31 @@ function AboutBio() {
 
 function AboutCTA() {
   return (
-    <section className="bg-dark-grid text-white py-20 lg:py-24 relative overflow-hidden">
-      {/* Radial ruby glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(220, 38, 38, 0.2) 0%, transparent 70%)",
-        }}
-      />
-
-      <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center relative z-10">
-        <FadeIn>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif">
-            Have a product idea?{" "}
-            <span className="text-ruby-400">Let&apos;s talk.</span>
+    <section className="bg-ink-950 text-bone-100 py-28 lg:py-36 overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-24 text-center">
+        <Reveal amount={0.3}>
+          <h2 className="display text-[clamp(2.4rem,6vw,5rem)] leading-[1.05] text-bone-50">
+            Have a product in mind?
           </h2>
-        </FadeIn>
+        </Reveal>
+        <Reveal amount={0.3} delay={0.12}>
+          <h2 className="display text-[clamp(2.4rem,6vw,5rem)] leading-[1.05]">
+            <em className="text-ruby-400">Let&rsquo;s talk.</em>
+          </h2>
+        </Reveal>
 
-        <FadeIn delay={0.15}>
-          <p className="mt-6 text-lg text-slate-400 leading-relaxed">
-            If you&apos;re serious about building custom software for your team,
-            Jordan wants to hear from you.
+        <Rise delay={0.25}>
+          <p className="mt-8 text-lg text-bone-400 leading-relaxed max-w-md mx-auto">
+            If you&rsquo;re serious about building custom software for your
+            company, Jordan wants to hear from you.
           </p>
-        </FadeIn>
-
-        <FadeIn delay={0.3}>
           <div className="mt-10">
-            <a
-              href="/#contact"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-slate-950 text-[15px] font-medium rounded-lg hover:bg-slate-100 transition-colors"
-            >
+            <a href="/#contact" className="btn-bone">
               Start the Conversation
+              <span aria-hidden>→</span>
             </a>
           </div>
-        </FadeIn>
+        </Rise>
       </div>
     </section>
   );
