@@ -1,7 +1,49 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import FadeIn from "./animations/FadeIn";
-import MagneticButton from "./animations/MagneticButton";
+import { Reveal, Rule, Rise } from "./animations/Reveal";
+
+/* ----------------------------------------------------------------
+   Commence — the intake. Ledger lines, not boxes.
+---------------------------------------------------------------- */
+
+const EXPECTATIONS = [
+  {
+    index: "01",
+    text: "A thirty-minute strategy call to understand what you're solving.",
+  },
+  {
+    index: "02",
+    text: "An honest read on whether a custom build makes sense at all.",
+  },
+  {
+    index: "03",
+    text: "High-level scope and an investment range. No pressure, no hard sell.",
+  },
+];
+
+function Field({
+  label,
+  htmlFor,
+  className = "",
+  children,
+}: {
+  label: string;
+  htmlFor: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={className}>
+      <label
+        htmlFor={htmlFor}
+        className="overline-label text-bone-500 block mb-1"
+      >
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -50,7 +92,11 @@ export default function Contact() {
 
       setIsSubmitted(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -58,166 +104,98 @@ export default function Contact() {
 
   if (isSubmitted) {
     return (
-      <section id="contact" className="py-24 lg:py-32 bg-slate-50 overflow-hidden">
+      <section
+        id="contact"
+        className="bg-ink-950 text-bone-100 py-32 lg:py-48 overflow-hidden"
+      >
         <motion.div
-          className="max-w-3xl mx-auto px-6 lg:px-8 text-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
+          className="max-w-2xl mx-auto px-6 text-center"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <motion.div
-            className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-6"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
-          >
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-          </motion.div>
-          <motion.h2
-            className="text-3xl font-serif text-slate-900 mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Thanks for reaching out!
-          </motion.h2>
-          <motion.p
-            className="text-lg text-slate-600"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            We&apos;ll review your message and get back to you within 24-48
-            hours to schedule a strategy call.
-          </motion.p>
+          <span className="overline-label text-ruby-400">
+            Transmission Logged
+          </span>
+          <h2 className="display text-6xl lg:text-7xl text-bone-50 mt-6">
+            Received.
+          </h2>
+          <p className="text-lg text-bone-400 leading-relaxed mt-6 max-w-md mx-auto">
+            We&rsquo;ll review what you&rsquo;re building and come back within
+            24–48 hours with next steps.
+          </p>
         </motion.div>
       </section>
     );
   }
 
   return (
-    <section id="contact" className="py-24 lg:py-32 bg-slate-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
-          {/* Left Column - Text */}
-          <div>
-            <FadeIn delay={0.1}>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
-                Ready to build something that{" "}
-                <span className="text-ruby-600">actually fits?</span>
+    <section
+      id="contact"
+      data-chapter="07 — Commence"
+      className="bg-ink-950 text-bone-100 py-28 lg:py-40 overflow-hidden"
+    >
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-24">
+        <div className="flex items-baseline justify-between mb-4">
+          <span className="overline-label text-ruby-400">07 — Commence</span>
+          <span className="overline-label text-bone-500 hidden sm:block">
+            Strategy First
+          </span>
+        </div>
+        <Rule className="bg-bone-100/15" />
+
+        <div className="mt-14 lg:mt-20 grid lg:grid-cols-12 gap-14 lg:gap-24">
+          {/* Left — the pitch */}
+          <div className="lg:col-span-5">
+            <Reveal>
+              <h2 className="display text-5xl lg:text-6xl text-bone-50">
+                Tell us what
               </h2>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <p className="text-lg text-slate-600 leading-relaxed mb-8">
-                Tell us about your team and what you&apos;re thinking about
-                building. We&apos;ll schedule a strategy call to explore if
-                we&apos;re a fit.
-              </p>
-            </FadeIn>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="display text-5xl lg:text-6xl text-bone-50">
+                you&rsquo;re trying{" "}
+              </h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <h2 className="display text-5xl lg:text-6xl text-bone-50">
+                to <em className="text-ruby-400">build.</em>
+              </h2>
+            </Reveal>
 
-            {/* What to Expect */}
-            <FadeIn delay={0.3}>
-              <div className="space-y-4">
-                <h3 className="font-semibold text-slate-900">What to expect:</h3>
-                <ul className="space-y-3">
-                  {[
-                    "30-minute strategy call to understand your needs",
-                    "Honest assessment of whether custom build makes sense",
-                    "High-level scope and investment range",
-                    "No pressure, no hard sell",
-                  ].map((item, index) => (
-                    <motion.li
-                      key={index}
-                      className="flex items-start gap-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.4 + index * 0.1 }}
-                    >
-                      <motion.svg
-                        className="w-5 h-5 text-ruby-600 flex-shrink-0 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          delay: 0.5 + index * 0.1,
-                        }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </motion.svg>
-                      <span className="text-slate-600">{item}</span>
-                    </motion.li>
-                  ))}
-                </ul>
+            <Rise delay={0.25}>
+              <div className="mt-12 space-y-7">
+                {EXPECTATIONS.map((item) => (
+                  <div key={item.index} className="flex items-baseline gap-5">
+                    <span className="overline-label text-ruby-400 shrink-0">
+                      {item.index}
+                    </span>
+                    <p className="text-bone-400 leading-relaxed">{item.text}</p>
+                  </div>
+                ))}
               </div>
-            </FadeIn>
+            </Rise>
 
-            {/* Direct email */}
-            <FadeIn delay={0.5}>
-              <div className="mt-10 pt-8 border-t border-slate-200">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="h-px w-8 bg-ruby-600/50" />
-                  <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-ruby-600">
-                    Or skip the form
-                  </span>
-                </div>
-                <p className="text-slate-600 leading-relaxed mb-3">
-                  Prefer to keep it simple? Email me directly to book a discovery call.
+            <Rise delay={0.35}>
+              <div className="mt-14 border-t border-bone-100/15 pt-8">
+                <p className="overline-label text-bone-500 mb-3">
+                  Or skip the form
                 </p>
-                <div className="inline-flex items-baseline font-serif text-2xl sm:text-3xl text-slate-900 select-all">
-                  <span className="relative">
-                    jordan@rubykaylabs.com
-                    <span className="absolute left-0 -bottom-1 h-px w-full bg-ruby-600/40" />
-                  </span>
-                </div>
+                <a
+                  href="mailto:jordan@rubykaylabs.com"
+                  className="link-draw font-serif text-2xl sm:text-3xl text-bone-100"
+                >
+                  jordan@rubykaylabs.com
+                </a>
               </div>
-            </FadeIn>
+            </Rise>
           </div>
 
-          {/* Right Column - Form */}
-          <FadeIn delay={0.2} direction="left">
-            <motion.form
-              onSubmit={handleSubmit}
-              className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm border border-slate-200"
-              whileHover={{ boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                {/* First Name */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                >
-                  <label
-                    htmlFor="firstName"
-                    className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    First Name *
-                  </label>
+          {/* Right — the intake form */}
+          <Rise delay={0.2} className="lg:col-span-7">
+            <form onSubmit={handleSubmit}>
+              <div className="grid sm:grid-cols-2 gap-x-10 gap-y-8">
+                <Field label="First Name *" htmlFor="firstName">
                   <input
                     type="text"
                     id="firstName"
@@ -225,24 +203,12 @@ export default function Contact() {
                     required
                     value={formData.firstName}
                     onChange={handleChange}
-                    className="input"
+                    className="input-line"
                     placeholder="First name"
                   />
-                </motion.div>
+                </Field>
 
-                {/* Last Name */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 }}
-                >
-                  <label
-                    htmlFor="lastName"
-                    className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Last Name *
-                  </label>
+                <Field label="Last Name *" htmlFor="lastName">
                   <input
                     type="text"
                     id="lastName"
@@ -250,24 +216,12 @@ export default function Contact() {
                     required
                     value={formData.lastName}
                     onChange={handleChange}
-                    className="input"
+                    className="input-line"
                     placeholder="Last name"
                   />
-                </motion.div>
+                </Field>
 
-                {/* Email */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Email *
-                  </label>
+                <Field label="Email *" htmlFor="email">
                   <input
                     type="email"
                     id="email"
@@ -275,48 +229,24 @@ export default function Contact() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="input"
+                    className="input-line"
                     placeholder="you@company.com"
                   />
-                </motion.div>
+                </Field>
 
-                {/* Phone */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.25 }}
-                >
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Phone Number
-                  </label>
+                <Field label="Phone" htmlFor="phone">
                   <input
                     type="tel"
                     id="phone"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="input"
+                    className="input-line"
                     placeholder="(555) 555-5555"
                   />
-                </motion.div>
+                </Field>
 
-                {/* Company */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <label
-                    htmlFor="company"
-                    className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Company *
-                  </label>
+                <Field label="Company *" htmlFor="company">
                   <input
                     type="text"
                     id="company"
@@ -324,31 +254,19 @@ export default function Contact() {
                     required
                     value={formData.company}
                     onChange={handleChange}
-                    className="input"
+                    className="input-line"
                     placeholder="Your company"
                   />
-                </motion.div>
+                </Field>
 
-                {/* Role */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.35 }}
-                >
-                  <label
-                    htmlFor="role"
-                    className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Your Role *
-                  </label>
+                <Field label="Your Role *" htmlFor="role">
                   <select
                     id="role"
                     name="role"
                     required
                     value={formData.role}
                     onChange={handleChange}
-                    className="input bg-white"
+                    className="input-line"
                   >
                     <option value="">Select role</option>
                     <option value="founder-ceo">Founder / CEO</option>
@@ -357,109 +275,68 @@ export default function Contact() {
                     <option value="product-manager">Product Manager</option>
                     <option value="other">Other</option>
                   </select>
-                </motion.div>
+                </Field>
 
-                {/* Team Size */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <label
-                    htmlFor="teamSize"
-                    className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Team Size
-                  </label>
+                <Field label="Team Size" htmlFor="teamSize">
                   <select
                     id="teamSize"
                     name="teamSize"
                     value={formData.teamSize}
                     onChange={handleChange}
-                    className="input bg-white"
+                    className="input-line"
                   >
                     <option value="">Select size</option>
-                    <option value="10-25">10-25 people</option>
-                    <option value="25-50">25-50 people</option>
-                    <option value="50-100">50-100 people</option>
+                    <option value="10-25">10–25 people</option>
+                    <option value="25-50">25–50 people</option>
+                    <option value="50-100">50–100 people</option>
                     <option value="100+">100+ people</option>
                   </select>
-                </motion.div>
+                </Field>
 
-                {/* Industry */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.45 }}
-                >
-                  <label
-                    htmlFor="markets"
-                    className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Industry
-                  </label>
+                <Field label="Industry" htmlFor="markets">
                   <input
                     type="text"
                     id="markets"
                     name="markets"
                     value={formData.markets}
                     onChange={handleChange}
-                    className="input"
+                    className="input-line"
                     placeholder="e.g., Real Estate, Healthcare, SaaS"
                   />
-                </motion.div>
+                </Field>
               </div>
 
-              {/* Message */}
-              <motion.div
-                className="mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-              >
-                <label
+              <div className="mt-8">
+                <Field
+                  label="What are you thinking about building? *"
                   htmlFor="message"
-                  className="block text-sm font-medium text-slate-700 mb-2"
                 >
-                  What are you thinking about building? *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="input textarea"
-                  placeholder="Tell us about the problem you're trying to solve..."
-                />
-              </motion.div>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={3}
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="input-line"
+                    placeholder="Tell us about the problem you're trying to solve…"
+                  />
+                </Field>
+              </div>
 
-              {/* Budget */}
-              <motion.div
-                className="mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.45 }}
-              >
-                <label className="block text-sm font-medium text-slate-700 mb-3">
-                  Budget Range (optional)
-                </label>
+              <div className="mt-10">
+                <p className="overline-label text-bone-500 mb-4">
+                  Budget Range — Optional
+                </p>
                 <div className="flex flex-wrap gap-3">
                   {["$10k-$25k", "$25k-$50k", "$50k+"].map((option) => (
-                    <motion.label
+                    <label
                       key={option}
-                      className={`inline-flex items-center px-4 py-2 rounded-lg border cursor-pointer transition-all ${
+                      className={`overline-label cursor-pointer border px-5 py-3 transition-colors duration-300 ${
                         formData.budget === option
-                          ? "border-slate-900 bg-slate-900 text-white"
-                          : "border-slate-300 hover:border-slate-400 bg-white"
+                          ? "border-ruby-400 text-bone-50 bg-ruby-600/20"
+                          : "border-bone-100/20 text-bone-400 hover:border-bone-100/50"
                       }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
                     >
                       <input
                         type="radio"
@@ -469,41 +346,35 @@ export default function Contact() {
                         onChange={handleChange}
                         className="sr-only"
                       />
-                      <span className="text-sm font-medium">{option}</span>
-                    </motion.label>
+                      {option.replace(/-/g, " – ")}
+                    </label>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
-              {/* Error Display */}
               <AnimatePresence>
                 {error && (
                   <motion.div
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm"
+                    exit={{ opacity: 0, y: -8 }}
+                    className="mt-8 border border-ruby-500/40 bg-ruby-600/10 px-5 py-4 text-sm text-ruby-300"
                   >
                     {error}
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              {/* Submit */}
-              <MagneticButton
-                as="button"
-                onClick={() => {}}
-                className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn-bone w-full mt-12 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <motion.span
-                  animate={isSubmitting ? { opacity: [1, 0.5, 1] } : {}}
-                  transition={{ duration: 1, repeat: Infinity }}
-                >
-                  {isSubmitting ? "Sending..." : "See If We're a Fit"}
-                </motion.span>
-              </MagneticButton>
-            </motion.form>
-          </FadeIn>
+                {isSubmitting ? "Sending…" : "Request a Strategy Call"}
+                {!isSubmitting && <span aria-hidden>→</span>}
+              </button>
+            </form>
+          </Rise>
         </div>
       </div>
     </section>

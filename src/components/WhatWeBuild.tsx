@@ -1,123 +1,172 @@
-import { motion } from "framer-motion";
-import FadeIn from "./animations/FadeIn";
-import StaggerContainer, { StaggerItem } from "./animations/StaggerContainer";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Reveal, Rule, Rise, EASE } from "./animations/Reveal";
+
+/* ----------------------------------------------------------------
+   Capabilities — an index of what the studio builds to order.
+   Rows expand like a ledger, not a card grid.
+---------------------------------------------------------------- */
+
+const CAPABILITIES = [
+  {
+    index: "01",
+    title: "AI Systems",
+    summary:
+      "Assistants, automation, and intelligence built into the way you already operate — not bolted on after the fact.",
+    deliverables: [
+      "AI Assistants",
+      "Workflow Automation",
+      "Document & Image Intelligence",
+      "LLM Integration",
+    ],
+  },
+  {
+    index: "02",
+    title: "Internal Platforms",
+    summary:
+      "The dashboards, portals, and operations tooling your team lives in — designed for daily adoption, not a demo.",
+    deliverables: ["Dashboards", "Admin Panels", "Team Portals", "Reporting"],
+  },
+  {
+    index: "03",
+    title: "Client-Facing Products",
+    summary:
+      "The software your customers touch: portals, marketplaces, booking flows, and sites that convert.",
+    deliverables: ["Web Applications", "Client Portals", "Marketing Sites", "E-Commerce"],
+  },
+  {
+    index: "04",
+    title: "Mobile",
+    summary:
+      "Native iPhone and Android tools for the field — offline-ready, syncing when they need to.",
+    deliverables: ["iOS", "Android", "Field Tools", "Offline-First"],
+  },
+];
+
+function CapabilityRow({
+  capability,
+  isOpen,
+  onToggle,
+}: {
+  capability: (typeof CAPABILITIES)[number];
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="border-t border-ink-950/15">
+      <button
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        className="group w-full grid grid-cols-12 items-baseline gap-4 py-7 lg:py-9 px-2 -mx-2 text-left cursor-pointer transition-colors duration-500 hover:bg-ink-950/[0.035]"
+      >
+        <span className="overline-label text-ruby-600 col-span-2 sm:col-span-1">
+          {capability.index}
+        </span>
+        <span
+          className={`display text-2xl sm:text-3xl lg:text-4xl col-span-8 sm:col-span-9 transition-[transform,color] duration-500 group-hover:translate-x-2 ${
+            isOpen ? "text-ink-950" : "text-ink-950/80 group-hover:text-ink-950"
+          }`}
+        >
+          {capability.title}
+        </span>
+        <span className="col-span-2 justify-self-end self-center relative w-4 h-4">
+          {/* Plus that rotates into a close */}
+          <motion.span
+            className="absolute top-1/2 left-0 w-4 h-px bg-ink-950"
+            animate={{ rotate: isOpen ? 0 : 0 }}
+          />
+          <motion.span
+            className="absolute top-1/2 left-0 w-4 h-px bg-ink-950"
+            animate={{ rotate: isOpen ? 0 : 90 }}
+            transition={{ duration: 0.4, ease: EASE }}
+          />
+        </span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.55, ease: EASE }}
+            className="overflow-hidden"
+          >
+            <div className="grid grid-cols-12 gap-4 pb-10 lg:pb-12">
+              <div className="hidden sm:block sm:col-span-1" />
+              <p className="col-span-12 sm:col-span-6 text-ink-600 leading-relaxed max-w-md">
+                {capability.summary}
+              </p>
+              <ul className="col-span-12 sm:col-span-5 space-y-2 mt-2 sm:mt-0">
+                {capability.deliverables.map((item) => (
+                  <li
+                    key={item}
+                    className="overline-label text-ink-500 flex items-center gap-3"
+                  >
+                    <span className="w-1 h-1 bg-ruby-600 rotate-45 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function WhatWeBuild() {
-  const services = [
-    {
-      number: "01",
-      label: "Web",
-      title: "Consumer-Facing Websites",
-      description:
-        "Marketing sites, landing pages, and client portals that convert. Fast, polished, and built to integrate with your existing systems.",
-    },
-    {
-      number: "02",
-      label: "Internal",
-      title: "Internal Tools & Dashboards",
-      description:
-        "Team portals, admin panels, and productivity dashboards. Built for how your team actually works—not how a vendor thinks they should.",
-    },
-    {
-      number: "03",
-      label: "AI",
-      title: "Advanced AI Tools",
-      description:
-        "Custom AI assistants, automation workflows, and intelligent features. From chatbots to image processing—AI that fits your business, not the other way around.",
-    },
-    {
-      number: "04",
-      label: "Mobile",
-      title: "Mobile Apps",
-      description:
-        "Native iPhone and Android apps for your team and customers. Field-ready tools that work offline and sync when they need to.",
-    },
-  ];
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="services" className="py-24 lg:py-32 bg-slate-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="max-w-2xl mb-16">
-          <FadeIn delay={0.1}>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
-              We don&apos;t sell templates. We build what your business{" "}
-              <span className="text-ruby-600">actually needs.</span>
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              Every engagement starts with strategy. We understand your workflows,
-              identify the bottlenecks, then design and ship a tight v1—not a
-              bloated feature list.
-            </p>
-          </FadeIn>
+    <section
+      id="capabilities"
+      data-chapter="03 — Capabilities"
+      className="bg-bone-100 text-ink-950 py-28 lg:py-40 overflow-hidden"
+    >
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-24">
+        <div className="flex items-baseline justify-between mb-4">
+          <span className="overline-label text-ruby-600">
+            03 — Capabilities
+          </span>
+          <span className="overline-label text-ink-500 hidden sm:block">
+            Built to Order
+          </span>
+        </div>
+        <Rule className="bg-ink-950/15" />
+
+        <div className="mt-12 lg:mt-16 mb-16 lg:mb-20 grid lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-7">
+            <Reveal>
+              <h2 className="display text-5xl lg:text-7xl text-ink-950">
+                What we build to order.
+              </h2>
+            </Reveal>
+          </div>
+          <div className="lg:col-span-5 lg:pt-4">
+            <Rise delay={0.15}>
+              <p className="text-lg text-ink-600 leading-relaxed max-w-md">
+                No templates, no feature bloat. Every engagement starts with
+                your workflows and ends with a tight first version your team
+                actually uses.
+              </p>
+            </Rise>
+          </div>
         </div>
 
-        {/* Services Grid */}
-        <StaggerContainer className="grid md:grid-cols-2 gap-6" staggerDelay={0.1}>
-          {services.map((service) => (
-            <StaggerItem key={service.number}>
-              <motion.div
-                className="group relative h-full bg-white rounded-2xl border border-slate-200 overflow-hidden"
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                {/* Top hairline accent that fills on hover */}
-                <div className="absolute inset-x-0 top-0 h-px bg-slate-200" />
-                <motion.div
-                  className="absolute left-0 top-0 h-px bg-ruby-600"
-                  initial={{ width: "20%" }}
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                />
-
-                {/* Oversized serif watermark numeral */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -right-2 -top-6 select-none font-serif leading-none text-[11rem] text-ruby-600/[0.06] group-hover:text-ruby-600/[0.10] transition-colors duration-500"
-                >
-                  {service.number}
-                </div>
-
-                <div className="relative p-8 sm:p-10 h-full flex flex-col">
-                  {/* Eyebrow row */}
-                  <div className="flex items-center gap-3 mb-10">
-                    <span className="text-[11px] font-mono font-medium tracking-[0.18em] uppercase text-ruby-600">
-                      {service.number}
-                    </span>
-                    <span className="h-px w-8 bg-ruby-600/40" />
-                    <span className="text-[11px] font-mono tracking-[0.18em] uppercase text-slate-500">
-                      {service.label}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-2xl sm:text-[1.75rem] font-serif text-slate-900 leading-tight mb-4 max-w-[22ch]">
-                    {service.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-slate-600 leading-relaxed max-w-prose">
-                    {service.description}
-                  </p>
-
-                  {/* Bottom rule + chevron */}
-                  <div className="mt-auto pt-10 flex items-center gap-3">
-                    <div className="h-px flex-1 bg-slate-200" />
-                    <motion.span
-                      className="text-ruby-600 text-lg leading-none"
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 4 }}
-                    >
-                      →
-                    </motion.span>
-                  </div>
-                </div>
-              </motion.div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        <Rise>
+          <div className="border-b border-ink-950/15">
+            {CAPABILITIES.map((capability, i) => (
+              <CapabilityRow
+                key={capability.index}
+                capability={capability}
+                isOpen={openIndex === i}
+                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+              />
+            ))}
+          </div>
+        </Rise>
       </div>
     </section>
   );

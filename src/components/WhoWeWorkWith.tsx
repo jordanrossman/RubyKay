@@ -1,144 +1,147 @@
-import { motion } from "framer-motion";
-import FadeIn from "./animations/FadeIn";
-import StaggerContainer, { StaggerItem } from "./animations/StaggerContainer";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { useRef } from "react";
+import { Reveal, Rule, Rise } from "./animations/Reveal";
 
-type FilledCell = { col: number; row: number; opacity: number };
+/* ----------------------------------------------------------------
+   The Manifesto — a statement that inks itself in as you read it,
+   followed by the clientele ledger.
+---------------------------------------------------------------- */
 
-function GridPattern({ filled }: { filled: FilledCell[] }) {
-  const CELL = 28;
-  const mask =
-    "radial-gradient(ellipse 120% 100% at 100% 0%, #000 10%, rgba(0,0,0,0.75) 45%, transparent 95%)";
+const STATEMENT: { text: string; accent?: boolean }[] =
+  `Every company runs on software. Most run on somebody else's — the same CRMs, the same dashboards, the same plugins as the competition. The edge belongs to the ones who`
+    .split(" ")
+    .map((text) => ({ text }));
+
+const ACCENT_WORDS: { text: string; accent?: boolean }[] = [
+  { text: "build", accent: true },
+  { text: "their", accent: true },
+  { text: "own.", accent: true },
+];
+
+const WORDS = [...STATEMENT, ...ACCENT_WORDS];
+
+function Word({
+  children,
+  index,
+  total,
+  progress,
+  accent,
+}: {
+  children: string;
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+  accent?: boolean;
+}) {
+  const start = (index / total) * 0.9;
+  const end = start + 0.1;
+  const opacity = useTransform(progress, [start, end], [0.16, 1]);
+
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0"
-      style={{
-        WebkitMaskImage: mask,
-        maskImage: mask,
-      }}
+    <motion.span
+      style={{ opacity }}
+      className={accent ? "font-serif italic text-ruby-400" : undefined}
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(185,28,28,0.18) 1px, transparent 1px), linear-gradient(to bottom, rgba(185,28,28,0.18) 1px, transparent 1px)",
-          backgroundSize: `${CELL}px ${CELL}px`,
-          backgroundPosition: "right top",
-        }}
-      />
-      {filled.map((c, i) => (
-        <div
-          key={i}
-          className="absolute"
-          style={{
-            right: `${c.col * CELL + 1}px`,
-            top: `${c.row * CELL + 1}px`,
-            width: `${CELL - 1}px`,
-            height: `${CELL - 1}px`,
-            background: `rgba(185,28,28,${c.opacity})`,
-          }}
-        />
-      ))}
-    </div>
+      {children}{" "}
+    </motion.span>
   );
 }
 
+const CLIENTELE = [
+  {
+    index: "01",
+    title: "Growing teams",
+    description:
+      "Ten to a hundred people, ready to trade subscriptions for proprietary tools that compound.",
+  },
+  {
+    index: "02",
+    title: "Scaling organizations",
+    description:
+      "Operators standardizing on systems that are actually theirs — brand, data, and roadmap included.",
+  },
+  {
+    index: "03",
+    title: "Ops & marketing leaders",
+    description:
+      "Directors automating the manual work that eats their week, with software their people will actually open.",
+  },
+];
+
 export default function WhoWeWorkWith() {
-  const audiences: {
-    title: string;
-    description: string;
-    cells: FilledCell[];
-  }[] = [
-    {
-      cells: [
-        { col: 1, row: 0, opacity: 0.55 },
-        { col: 3, row: 1, opacity: 0.25 },
-        { col: 0, row: 2, opacity: 0.15 },
-        { col: 5, row: 0, opacity: 0.35 },
-        { col: 2, row: 3, opacity: 0.1 },
-      ],
-      title: "Growing Teams",
-      description:
-        "Companies with 10-100 people who want proprietary tools that give them a competitive edge.",
-    },
-    {
-      cells: [
-        { col: 0, row: 1, opacity: 0.45 },
-        { col: 2, row: 0, opacity: 0.2 },
-        { col: 4, row: 2, opacity: 0.3 },
-        { col: 1, row: 3, opacity: 0.12 },
-        { col: 6, row: 1, opacity: 0.18 },
-      ],
-      title: "Scaling Organizations",
-      description:
-        "Mid-size companies looking to stand out with custom tech that drives efficiency and retention.",
-    },
-    {
-      cells: [
-        { col: 2, row: 1, opacity: 0.5 },
-        { col: 0, row: 0, opacity: 0.22 },
-        { col: 4, row: 0, opacity: 0.13 },
-        { col: 3, row: 2, opacity: 0.3 },
-        { col: 1, row: 3, opacity: 0.1 },
-      ],
-      title: "Operations Leaders",
-      description:
-        "Directors and managers who need to systematize workflows and eliminate manual bottlenecks.",
-    },
-  ];
+  const statementRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: statementRef,
+    offset: ["start 0.85", "start 0.3"],
+  });
 
   return (
-    <section className="py-24 lg:py-32 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="max-w-2xl mb-16">
-          <FadeIn delay={0.1}>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight mb-6">
-              Built for operators who refuse to settle.
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              We partner with companies who are tired of off-the-shelf
-              tools that everyone else uses. If you want something that&apos;s
-              truly yours, we should talk.
-            </p>
-          </FadeIn>
-        </div>
+    <section
+      data-chapter="01 — Thesis"
+      className="bg-ink-950 text-bone-100 py-28 lg:py-44 overflow-hidden"
+    >
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-24">
+        {/* Statement */}
+        <p
+          ref={statementRef}
+          className="font-serif text-[clamp(1.7rem,3.6vw,3.2rem)] leading-[1.22] max-w-5xl"
+        >
+          {WORDS.map((word, i) => (
+            <Word
+              key={i}
+              index={i}
+              total={WORDS.length}
+              progress={scrollYProgress}
+              accent={word.accent}
+            >
+              {word.text}
+            </Word>
+          ))}
+        </p>
 
-        {/* Audience Cards */}
-        <StaggerContainer className="grid md:grid-cols-3 gap-8" staggerDelay={0.15}>
-          {audiences.map((audience, index) => (
-            <StaggerItem key={index}>
-              <motion.div
-                className="feature-card h-full relative overflow-hidden"
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <GridPattern filled={audience.cells} />
-                <div className="relative pt-24">
-                  <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                    {audience.title}
+        {/* Clientele ledger */}
+        <div className="mt-28 lg:mt-36">
+          <div className="flex items-baseline justify-between mb-4">
+            <Reveal as="span">
+              <span className="overline-label text-bone-500">
+                Who We Work With
+              </span>
+            </Reveal>
+            <Reveal as="span" delay={0.1}>
+              <span className="overline-label text-bone-500 hidden sm:block">
+                RKL — Clientele
+              </span>
+            </Reveal>
+          </div>
+
+          {CLIENTELE.map((client, i) => (
+            <div key={client.index}>
+              <Rule className="bg-bone-100/15" delay={i * 0.08} />
+              <Rise delay={0.1 + i * 0.08}>
+                <div className="grid sm:grid-cols-12 gap-2 sm:gap-6 py-8 lg:py-10 items-baseline">
+                  <span className="overline-label text-ruby-400 sm:col-span-1">
+                    {client.index}
+                  </span>
+                  <h3 className="font-serif text-2xl lg:text-3xl text-bone-100 sm:col-span-5">
+                    {client.title}
                   </h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    {audience.description}
+                  <p className="text-bone-400 leading-relaxed sm:col-span-6 max-w-md">
+                    {client.description}
                   </p>
                 </div>
-              </motion.div>
-            </StaggerItem>
+              </Rise>
+            </div>
           ))}
-        </StaggerContainer>
+          <Rule className="bg-bone-100/15" delay={0.3} />
 
-        {/* Clarification */}
-        <FadeIn delay={0.4} className="mt-12">
-          <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
-            <p className="text-slate-600 text-center">
-              <span className="font-medium text-slate-900">Not a fit:</span> Early-stage
-              startups looking for cheap websites or off-the-shelf plugins. We
-              build custom solutions for serious operators.
+          <Rise delay={0.35} className="pt-8">
+            <p className="overline-label text-bone-500 leading-loose">
+              <span className="text-ruby-400">Not a fit —</span> template
+              websites, off-the-shelf plugins, cheap &amp; fast. We build
+              assets, not expenses.
             </p>
-          </div>
-        </FadeIn>
+          </Rise>
+        </div>
       </div>
     </section>
   );
