@@ -25,6 +25,7 @@ const MARKS = [
   { name: "INVSBL", src: "/logos/invsbl.png", h: "h-9 sm:h-11" },
   { name: "GoodPar", src: "/logos/goodpar.png", h: "h-14 sm:h-16" },
   { name: "Daily Rabbi", src: "/logos/dailyrabbi.png", h: "h-10 sm:h-12" },
+  { name: "OV Legacy Research", src: "/logos/ovlegacy.png", h: "h-7 sm:h-8" },
 ];
 
 function Mark({ mark, index }: { mark: (typeof MARKS)[number]; index: number }) {
